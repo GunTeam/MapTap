@@ -4,6 +4,8 @@ var mapTap = (function () {
     var continents;
     var areas;
     
+    var currentCountry;
+    
     var pathColor = '#5522cc';
     var borderColor = '#cc0000';
     var defaultColor = '#ffffff';
@@ -99,13 +101,6 @@ var mapTap = (function () {
             "Zambia":["Angola","Democratic Republic of the Congo","Tanzania","Malawi","Mozambique","Zimbabwe","Namibia"],
             "Zimbabwe":["Zambia","Botswana","South Africa","Mozambique","Namibia"]
     };
-
-
-    states_dictionary={ 
-     "CT":["alex","harry"], 
-     "AK":["liza","alex"], 
-     "TX":["fred", "harry"]
-};
     
     google.load("visualization", "1.0", {packages:["geochart"]});
     google.setOnLoadCallback(drawRegionsMap);
@@ -132,21 +127,24 @@ var mapTap = (function () {
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
-            dataCountries[index][1] = 1;
+            if (borderDictionary[currentCountry].indexOf(country)>=0){
+                currentCountry = country;
+                dataCountries[index][1] = 1;
 
-            
-            var color = "black";
-            
-            if($.inArray(country, countriesToAvoid) != -1){
-                color = avoidColor; 
-                dataCountries[index][1] = .5;
 
+                var color = "black";
+
+                if($.inArray(country, countriesToAvoid) != -1){
+                    color = avoidColor; 
+                    dataCountries[index][1] = .5;
+
+                }
+                drawRegionsMap()
+
+
+                var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
+                $(".countries_visited").append(visitedString);    
             }
-            drawRegionsMap()
-
-            
-            var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
-            $(".countries_visited").append(visitedString);    
         }
     }
 
@@ -258,6 +256,7 @@ var mapTap = (function () {
     var newGame = function(){
         var newCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         var newCountry = dataCountries[newCountryIndex][0];
+        currentCountry = newCountry;
         dataCountries[newCountryIndex][1] = 1;
         
         var endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
