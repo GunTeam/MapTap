@@ -9,6 +9,9 @@ var mapTap = (function () {
     var defaultColor = '#ffffff';
     var goalColor = '#0C6E30';
     var avoidColor = 'red';
+    var pathColorIndex = 1;
+    
+    var countriesVisited = [];
     
     var dataCountries = [
           ['Country',   'Latitude'],
@@ -61,14 +64,22 @@ var mapTap = (function () {
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
             
-            var color = "black";
+            if(countriesVisited.indexOf(country) == -1){
+                dataCountries[index][1] = pathColorIndex;
             
-            if($.inArray(country, countriesToAvoid) != -1){
-                color = avoidColor;    
+                var color = "black";
+
+                if($.inArray(country, countriesToAvoid) != -1){
+                    color = avoidColor;    
+                }
+
+                var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
+                $(".countries_visited").append(visitedString); 
+                countriesVisited.push(country);
+
+                drawRegionsMap()
             }
-            
-            var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
-            $(".countries_visited").append(visitedString);    
+
         }
     }
 
@@ -175,9 +186,11 @@ var mapTap = (function () {
     };
     
     var newGame = function(){
+        
         var newCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         var newCountry = dataCountries[newCountryIndex][0];
         dataCountries[newCountryIndex][1] = 1;
+        countriesVisited = [newCountry];
         
         var endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         while(endCountryIndex === newCountryIndex){
