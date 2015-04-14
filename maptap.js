@@ -4,33 +4,39 @@ var mapTap = (function () {
     var continents;
     var areas;
     
-    google.load("visualization", "1.0", {packages:["geochart"]});
-    google.setOnLoadCallback(drawRegionsMap);
+    var pathColor = '#5522cc';
+    var borderColor = '#cc0000';
+    var defaultColor = '#ffffff';
+    var goalColor = '#0C6E30';
+    var avoidColor = 'red';
     
     var dataCountries = [
           ['Country',   'Latitude'],
-          ['Algeria', null], ['Angola', null], ['Benin', null], ['Botswana', null],
-          ['Burkina Faso', null], ['Burundi', null], ['Cameroon', null],
-          ['Canary Islands', null], ['Cape Verde', null],
-          ['Central African Republic', null], ['Ceuta', null], ['Chad', null],
-          ['Comoros', null], ['Cote d\'Ivoire', null],
-          ['Democratic Republic of the Congo', null], ['Djibouti', null],
-          ['Egypt', null], ['Equatorial Guinea', null], ['Eritrea', null],
-          ['Ethiopia', null], ['Gabon', 0], ['Gambia', null], ['Ghana', null],
-          ['Guinea', null], ['Guinea-Bissau', null], ['Kenya', 0],
-          ['Lesotho', null], ['Liberia', null], ['Libya', null], ['Madagascar', null],
-          ['Madeira', null], ['Malawi', null], ['Mali', null], ['Mauritania', null],
-          ['Mauritius', null], ['Mayotte', null], ['Melilla', null],
-          ['Morocco', null], ['Mozambique', null], ['Namibia', null],
-          ['Niger', null], ['Nigeria', null], ['Republic of the Congo', null],
-          ['Réunion', null], ['Rwanda', null], ['Saint Helena', null],
-          ['São Tomé and Principe', null], ['Senegal', null],
-          ['Seychelles', null], ['Sierra Leone', null], ['Somalia', null],
-          ['Sudan', null], ['South Africa', null], ['South Sudan', null],
-          ['Swaziland', null], ['Tanzania', null], ['Togo', null], ['Tunisia', null],
-          ['Uganda', null], ['Western Sahara', null], ['Zambia', null],
-          ['Zimbabwe', null]
+          ['Algeria', 0], ['Angola', 0], ['Benin', 0], ['Botswana', 0],
+          ['Burkina Faso', 0], ['Burundi', 0], ['Cameroon', 0],
+          ['Canary Islands', 0], ['Cape Verde', 0],
+          ['Central African Republic', 0], ['Ceuta', 0], ['Chad', 0],
+          ['Comoros', 0], ['Cote d\'Ivoire', 0],
+          ['Democratic Republic of the Congo', 0], ['Djibouti', 0],
+          ['Egypt', 0], ['Equatorial Guinea', 0], ['Eritrea', 0],
+          ['Ethiopia', 0], ['Gabon', 0], ['Gambia', 0], ['Ghana', 0],
+          ['Guinea', 0], ['Guinea-Bissau', 0], ['Kenya', 0],
+          ['Lesotho', 0], ['Liberia', 0], ['Libya', 0], ['Madagascar', 0],
+          ['Madeira', 0], ['Malawi', 0], ['Mali', 0], ['Mauritania', 0],
+          ['Mauritius', 0], ['Mayotte', 0], ['Melilla', 0],
+          ['Morocco', 0], ['Mozambique', 0], ['Namibia', 0],
+          ['Niger', 0], ['Nigeria', 0], ['Republic of the Congo', 0],
+          ['Réunion', 0], ['Rwanda', 0], ['Saint Helena', 0],
+          ['São Tomé and Principe', 0], ['Senegal', 0],
+          ['Seychelles', 0], ['Sierra Leone', 0], ['Somalia', 0],
+          ['Sudan', 0], ['South Africa', 0], ['South Sudan', 0],
+          ['Swaziland', 0], ['Tanzania', 0], ['Togo', 0], ['Tunisia', 0],
+          ['Uganda', 0], ['Western Sahara', 0], ['Zambia', 0],
+          ['Zimbabwe', 0]
         ];
+    
+    google.load("visualization", "1.0", {packages:["geochart"]});
+    google.setOnLoadCallback(drawRegionsMap);
     
     var countriesToAvoid = ['Comoros','Senegal','Zambia', 'Kenya'];
     
@@ -39,13 +45,14 @@ var mapTap = (function () {
         
         var options = {
             region: '002',
-            colorAxis: {colors: ['#ffffff']},
+            colorAxis: {colors: [defaultColor, borderColor, pathColor]},
             datalessRegionColor: '#ffffff',
             defaultColor: '#ffffff',
             tooltip : {trigger : "none"}
         };
-            var chart = new google.visualization.GeoChart(document.getElementById('mapDiv'));
-            chart.draw(data, options);        
+        
+        var chart = new google.visualization.GeoChart(document.getElementById('mapDiv'));
+        chart.draw(data, options);        
         
         google.visualization.events.addListener(chart, 'select', mapClickHandler);
     
@@ -57,14 +64,13 @@ var mapTap = (function () {
             var color = "black";
             
             if($.inArray(country, countriesToAvoid) != -1){
-                color = "red";    
+                color = avoidColor;    
             }
             
             var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
             $(".countries_visited").append(visitedString);    
         }
-
-        }
+    }
 
     function Model(){
         
@@ -76,28 +82,28 @@ var mapTap = (function () {
 //            }
 //        });
         
-        /**
-         * Define country codes and which continent they belong to
-         */
-        continents = {
-                africa       : [ "AO","BF","BI","BJ","BW","CD","CF","CG","CI","CM","DJ","DZ","EG","ER","ET","GA","GH","GM","GN","GQ","GW","KE","LR","LS","LY","MA","MG","ML","MR","MW","MZ","NA","NE","NG","RW","SD","SL","SN","SO","SS","SZ","TD","TG","TN","TZ","UG","ZA","ZM","ZW","EH","KM","GO","JU","SH","ST","YT","BV","CV","SC" ],
-                asia         : [ "AE","AF","BD","BN","BT","CN","ID","IL","IN","IQ","IR","JO","JP","KG","KH","KP","KR","KW","KZ","LA","LB","LK","MM","MN","MY","NP","OM","PH","PK","PS","QA","SA","SY","TH","TJ","TL","TM","TW","UZ","VN","YE","HK","MV","BH","SG" ],
-                europe       : [ "AL","AM","AT","AZ","BA","BE","BG","BY","CH","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GE","GR","HR","HU","IE","IS","IT","LT","LU","LV","MD","ME","MK","NL","NO","PL","PT","RO","RS","SE","SI","SJ","SK","TR","UA","RU","VA","MT","MC","XK","LI","IM","GI","FO","AD","AX","GG","SM" ],
-                northAmerica : [ "BS","BZ","CA","CR","CU","DO","GL","GT","HN","HT","JM","MX","NI","PA","PR","SV","US","AG","AW","BB","BL","GD","KN","LC","MQ","TC","VG","AI","BM","DM","PM","GP","KY","MF","MS","SX","TT","VC","VI","BQ","CW" ],
-                southAmerica : [ "AR","BO","BR","CL","CO","EC","FK","GF","GY","PE","PY","SR","UY","VE","GS" ],
-                oceania      : [ "AS","AU","BN","CC","CX","FJ","FM","GU","HM","IO","KI","MH","MO","MP","MU","NC","NF","NR","NU","NZ","PG","PW","RE","SB","TF","TK","TL","TO","TV","VU","WF","WS","CK","PF","PN" ]
-            };
-
-        /**
-         * Format areas array for all continents
-         */
-        areas = [];
-        for ( var x in continents["africa"] ) {
-            areas.push( {
-              id: continents["africa"][x],
-              groupId: "africa"
-            } );
-        }
+//        /**
+//         * Define country codes and which continent they belong to
+//         */
+//        continents = {
+//                africa       : [ "AO","BF","BI","BJ","BW","CD","CF","CG","CI","CM","DJ","DZ","EG","ER","ET","GA","GH","GM","GN","GQ","GW","KE","LR","LS","LY","MA","MG","ML","MR","MW","MZ","NA","NE","NG","RW","SD","SL","SN","SO","SS","SZ","TD","TG","TN","TZ","UG","ZA","ZM","ZW","EH","KM","GO","JU","SH","ST","YT","BV","CV","SC" ],
+//                asia         : [ "AE","AF","BD","BN","BT","CN","ID","IL","IN","IQ","IR","JO","JP","KG","KH","KP","KR","KW","KZ","LA","LB","LK","MM","MN","MY","NP","OM","PH","PK","PS","QA","SA","SY","TH","TJ","TL","TM","TW","UZ","VN","YE","HK","MV","BH","SG" ],
+//                europe       : [ "AL","AM","AT","AZ","BA","BE","BG","BY","CH","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GE","GR","HR","HU","IE","IS","IT","LT","LU","LV","MD","ME","MK","NL","NO","PL","PT","RO","RS","SE","SI","SJ","SK","TR","UA","RU","VA","MT","MC","XK","LI","IM","GI","FO","AD","AX","GG","SM" ],
+//                northAmerica : [ "BS","BZ","CA","CR","CU","DO","GL","GT","HN","HT","JM","MX","NI","PA","PR","SV","US","AG","AW","BB","BL","GD","KN","LC","MQ","TC","VG","AI","BM","DM","PM","GP","KY","MF","MS","SX","TT","VC","VI","BQ","CW" ],
+//                southAmerica : [ "AR","BO","BR","CL","CO","EC","FK","GF","GY","PE","PY","SR","UY","VE","GS" ],
+//                oceania      : [ "AS","AU","BN","CC","CX","FJ","FM","GU","HM","IO","KI","MH","MO","MP","MU","NC","NF","NR","NU","NZ","PG","PW","RE","SB","TF","TK","TL","TO","TV","VU","WF","WS","CK","PF","PN" ]
+//            };
+//
+//        /**
+//         * Format areas array for all continents
+//         */
+//        areas = [];
+//        for ( var x in continents["africa"] ) {
+//            areas.push( {
+//              id: continents["africa"][x],
+//              groupId: "africa"
+//            } );
+//        }
 
     };
     
@@ -120,12 +126,15 @@ var mapTap = (function () {
             +   "<div class = 'col-md-3'>"
             +           "<div class = 'objectivesTab'>"
             +           "</div>"
+            +           "<div class = 'avoidTab'>"
+            +           "</div>"
             +   "</div>"     
             +   "</div>"
             +"</div>");
         
         $(".countries_visited").append("<h1>Countries Visited</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
+        $(".avoidTab").append("<h1>Avoid</h1>");
         
 //        var map = AmCharts.makeChart("mapDiv", {
 //
@@ -161,7 +170,32 @@ var mapTap = (function () {
         var view = View(div, model);        
         exports.view = view;
         exports.model = model;
+        
+        newGame();
     };
+    
+    var newGame = function(){
+        var newCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
+        var newCountry = dataCountries[newCountryIndex][0];
+        dataCountries[newCountryIndex][1] = 1;
+        
+        var endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
+        while(endCountryIndex === newCountryIndex){
+            endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
+        }
+        var endCountry = dataCountries[endCountryIndex][0];
+        
+        var objectiveString = "<p>Starting at <span style='color:"+pathColor+"'>"+newCountry+"</span>, try to get to <span style='color:"+goalColor+"'>"+endCountry+"</span></p>";
+        $(".objectivesTab").append(objectiveString);   
+        
+        for(var countryToAvoidIndex in countriesToAvoid){
+            var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
+            var avoidString = "<p><span style='color:"+avoidColor+"'>"+countryToAvoid+"</span></p>";
+            $(".avoidTab").append(avoidString);   
+        }
+        
+        drawRegionsMap()
+    }
     
     exports.setup = setup;
     
