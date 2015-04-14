@@ -60,12 +60,18 @@ var mapTap = (function () {
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
+            dataCountries[index][1] = 1;
+
             
             var color = "black";
             
             if($.inArray(country, countriesToAvoid) != -1){
-                color = avoidColor;    
+                color = avoidColor; 
+                dataCountries[index][1] = .5;
+
             }
+            drawRegionsMap()
+
             
             var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
             $(".countries_visited").append(visitedString);    
