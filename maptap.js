@@ -156,7 +156,7 @@ var mapTap = (function() {
 
     var countriesToAvoid = ['Comoros', 'Senegal', 'Zambia', 'Kenya'];
 
-
+    //Make a map so that when given a country, we know what entry of dataCountries it corresponds to
     for (var dataCountryInd = 1; dataCountryInd < dataCountries.length; dataCountryInd++) {
         var thisCountry = dataCountries[dataCountryInd][0];
         countryToIndexMap[thisCountry] = dataCountryInd;
@@ -187,57 +187,60 @@ var mapTap = (function() {
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
+            
+            addCountryToPath(country, index);
+        }
+    }
+    
+    function addCountryToPath(country, index){
+        if (borderDictionary[currentCountry].indexOf(country) >= 0) {
+            currentCountry = country;
+            dataCountries[index][1] = pathColorIndex;
 
-            if (borderDictionary[currentCountry].indexOf(country) >= 0) {
-                currentCountry = country;
-                dataCountries[index][1] = pathColorIndex;
-
-                //clear the last bordering highlights
-                for (var pastBorderingCountryIndex in currentBordering) {
-                    var borderingCountry = currentBordering[pastBorderingCountryIndex];
-                    var indexInDataCountries = countryToIndexMap[borderingCountry];
-                    if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
-                        dataCountries[indexInDataCountries][1] = defaultColorIndex;
-                    }
+            //clear the last bordering highlights
+            for (var pastBorderingCountryIndex in currentBordering) {
+                var borderingCountry = currentBordering[pastBorderingCountryIndex];
+                var indexInDataCountries = countryToIndexMap[borderingCountry];
+                if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+                    dataCountries[indexInDataCountries][1] = defaultColorIndex;
                 }
-
-                currentBordering = [];
-
-                for (var borderingCountryIndex in borderDictionary[currentCountry]) {
-                    var borderingCountry = borderDictionary[currentCountry][borderingCountryIndex];
-                    currentBordering.push(borderingCountry);
-
-                    var indexInDataCountries = countryToIndexMap[borderingCountry];
-
-                    if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
-                        dataCountries[indexInDataCountries][1] = borderingColorIndex;
-                    }
-                }
-
-                var color = "black";
-
-                if (goalCountry === country) {
-                    onWin();
-                } else {
-                    if ($.inArray(country, countriesToAvoid) != -1) {
-                        color = avoidColor;
-                        dataCountries[index][1] = avoidColorIndex;
-                        currentCash -= 50;
-                        document.getElementById('cashInteger').innerHTML = currentCash;
-                    } else {
-                        currentCash -= 5;
-                        document.getElementById('cashInteger').innerHTML = currentCash;
-                    }
-                    drawRegionsMap()
-
-
-                    var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
-                    $(".countries_visited").append(visitedString);
-                }
-
             }
 
-        }
+            currentBordering = [];
+
+            for (var borderingCountryIndex in borderDictionary[currentCountry]) {
+                var borderingCountry = borderDictionary[currentCountry][borderingCountryIndex];
+                currentBordering.push(borderingCountry);
+
+                var indexInDataCountries = countryToIndexMap[borderingCountry];
+
+                if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+                    dataCountries[indexInDataCountries][1] = borderingColorIndex;
+                }
+            }
+
+            var color = "black";
+
+            if (goalCountry === country) {
+                onWin();
+            } else {
+                if ($.inArray(country, countriesToAvoid) != -1) {
+                    color = avoidColor;
+                    dataCountries[index][1] = avoidColorIndex;
+                    currentCash -= 50;
+                    document.getElementById('cashInteger').innerHTML = currentCash;
+                } else {
+                    currentCash -= 5;
+                    document.getElementById('cashInteger').innerHTML = currentCash;
+                }
+                drawRegionsMap()
+
+
+                var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
+                $(".countries_visited").append(visitedString);
+            }
+
+        }    
     }
 
     function onLose() {
@@ -330,7 +333,32 @@ var mapTap = (function() {
 
     function View(div, model) {
 
-        div.append("<div class = 'container-fluid well'>" + "<div class = 'row-fluid'>" + "<div class = 'col-md-3'>" + "<div class = 'row-fluid'>" + "<div class = 'cash'>" + "<p id='cashInteger'>125</p>" + "</div>" + "<div class = 'countries_visited'>" + "</div>" + "</div>" + "</div>" + "<div class = 'col-md-6'>" + "<div class = 'container mapContainer'>" + "<div id = 'mapDiv'>" + "</div>" + "</div>" + "</div>" + "<div class = 'col-md-3'>" + "<div class = 'objectivesTab'>" + "</div>" + "<div class = 'avoidTab'>" + "</div>" + "</div>" + "</div>" + "</div>");
+        div.append("<div class = 'container-fluid well'>"
+            +   "<div class = 'row-fluid'>"
+            +   "<div class = 'col-md-3'>"
+            +       "<div class = 'row-fluid'>"
+            +           "<div class = 'cash'>"
+            +               "<p id='cashInteger'>125</p>"
+            +           "</div>"
+            +           "<div class = 'countries_visited'>"
+            +           "</div>"
+            +       "</div>"
+            +   "</div>"                     
+            +   "<div class = 'col-md-6'>"
+            +       "<div class = 'container mapContainer'>"
+            +           "<div id = 'mapDiv'>"
+            +           "</div>"
+            +       "</div>"
+            +   "</div>"   
+            +   "<div class = 'col-md-3'>"
+            +           "<div class = 'objectivesTab'>"
+            +           "</div>"
+            +           "<div class = 'avoidTab'>"
+            +           "</div>"
+            +   "</div>"     
+            +   "</div>"
+            +"</div>");
+        
 
         $(".cash").prepend("<h1>Cash Remaining</h1>");
         $(".countries_visited").append("<h1>Countries Visited</h1>");
@@ -359,7 +387,8 @@ var mapTap = (function() {
         dataCountries[newCountryIndex][1] = pathColorIndex;
         countriesVisited = [newCountry];
 
-
+        addCountryToPath(newCountry, newCountryIndex)
+        
         var visitedString = "<p style='color:" + "black" + "'>" + currentCountry + "</p>";
         $(".countries_visited").append(visitedString);
 
@@ -379,7 +408,6 @@ var mapTap = (function() {
             $(".avoidTab").append(avoidString);
         }
 
-        drawRegionsMap()
     }
 
     exports.setup = setup;
