@@ -54,7 +54,7 @@ var mapTap = (function () {
         "Angola":["Democratic Republic of the Congo","Zambia","Namibia"],
         "Benin":["Togo","Burkina Faso","Niger","Nigeria"],
         "Botswana":["Namibia","Zimbabwe","South Africa"],
-        "Burkina Faso":["Mali","Niger","Benin","Togo","Ghana","Cote d'Ivoire"],
+        "Burkina Faso":["Mali","Niger","Benin","Togo","Ghana","Cote d\'Ivoire"],
         "Burundi":["Rwanda","Tanzania","Democratic Republic of the Congo"],
         "Cameroon":["Republic of the Congo","Gabon","Equatorial Guinea","Nigeria","Chad","Central African Republic"],
         "Canary Islands":["Western Sahara","Morocco"],
@@ -63,7 +63,7 @@ var mapTap = (function () {
         "Ceuta":["Morocco"],
         "Chad":["Niger","Libya","Cameroon","Central African Republic","Sudan"],
         "Comoros":["Madagascar","Mozambique"],
-        "Cote d'Ivoire":["Guinea","Liberia","Mali","Burkina Faso","Ghana"],
+        "Cote d\'Ivoire":["Guinea","Liberia","Mali","Burkina Faso","Ghana"],
         "Democratic Republic of the Congo":["Uganda","Rwanda","Burundi","Zambia","Angola","Republic of the Congo","Central African Republic","South Sudan"],
         "Djibouti":["Eritrea","Ethiopia","Somalia"],
         "Egypt":["Libya","Sudan"],
@@ -72,17 +72,17 @@ var mapTap = (function () {
         "Ethiopia":["Djibouti","Somalia","Kenya","South Sudan","Sudan"],
         "Gabon":["Equatorial Guinea","Cameroon","Republic of the Congo"],
         "Gambia":["Senegal"],
-        "Ghana":["Cote d’Ivoire","Togo","Burkina Faso"],
-        "Guinea":["Senegal","Sierra Leone","Liberia","Ivory Coast","Mali","Guinea-Bissau"],
+        "Ghana":["Cote d\'Ivoire","Togo","Burkina Faso"],
+        "Guinea":["Senegal","Sierra Leone","Liberia","Cote d\'Ivoire","Mali","Guinea-Bissau"],
         "Guinea-Bissau":["Senegal","Guinea"],
         "Kenya":["Uganda","Tanzania","Somalia","Ethiopia","South Sudan"],
         "Lesotho":["South Africa"],
-        "Liberia":["Sierra Leone", "Guinea","Cote d’Ivoire"],
+        "Liberia":["Sierra Leone", "Guinea","Cote d\'Ivoire"],
         "Libya":["Tunisia","Algeria","Niger","Chad","Egypt","Sudan"],
         "Madagascar":["Mozambique","Comoros"],
         "Madeira":[],
         "Malawi":["Tanzania","Zambia","Mozambique"],
-        "Mali":["Algeria","Niger","Burkina Faso","Cote d’Ivoire","Guinea","Senegal","Mauritania"],
+        "Mali":["Algeria","Niger","Burkina Faso","Cote d\'Ivoire","Guinea","Senegal","Mauritania"],
         "Mauritania":["Western Sahara","Mali","Algeria","Senegal","Cape Verde"],
         "Mauritius":[],
         "Mayotte":[],
@@ -165,7 +165,7 @@ var mapTap = (function () {
                 for(var borderingCountryIndex in borderDictionary[currentCountry]){
                     var borderingCountry = borderDictionary[currentCountry][borderingCountryIndex];
                     currentBordering.push(borderingCountry);
-                    
+                                        
                     var indexInDataCountries = countryToIndexMap[borderingCountry];
                     
                     if(dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex){
@@ -174,26 +174,29 @@ var mapTap = (function () {
                 }
 
                 var color = "black";
-
-                if($.inArray(country, countriesToAvoid) != -1){
-                    color = avoidColor; 
-                    dataCountries[index][1] = avoidColorIndex;
-                    currentCash -= 50; 
-                    document.getElementById('cashInteger').innerHTML = currentCash;
-                } else if (goalCountry === country){
+                
+                if (goalCountry === country){
                     onWin();
-                } else{
-                    currentCash -= 5; 
-                    document.getElementById('cashInteger').innerHTML = currentCash;
                 }
-                drawRegionsMap()
+                else{
+                    if($.inArray(country, countriesToAvoid) != -1){
+                        color = avoidColor; 
+                        dataCountries[index][1] = avoidColorIndex;
+                        currentCash -= 50; 
+                        document.getElementById('cashInteger').innerHTML = currentCash;
+                    } else{
+                        currentCash -= 5; 
+                        document.getElementById('cashInteger').innerHTML = currentCash;
+                    }
+                    drawRegionsMap()
 
 
-                var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
-                $(".countries_visited").append(visitedString);    
+                    var visitedString = "<p style='color:"+color+"'>"+country+"</p>";
+                    $(".countries_visited").append(visitedString);   
+                }
+                
             }
             
-            console.log(dataCountries);
         }
     }
     
@@ -233,9 +236,13 @@ var mapTap = (function () {
           ['Zimbabwe', 0]
         ];
         
-        while($(".objectivesTab").firstChild){
-            $(".objectivesTab").removeChild($(".objectivesTab").firstChild);
-        }
+        $(".objectivesTab").empty();
+        $(".countries_visited").empty();
+        $(".avoidTab").empty();
+        
+        $(".countries_visited").append("<h1>Countries Visited</h1>");
+        $(".objectivesTab").append("<h1>Objective</h1>");
+        $(".avoidTab").append("<h1>Avoid</h1>");
         
         currentCash = startingCash;
         document.getElementById('cashInteger').innerHTML = currentCash;
@@ -300,6 +307,10 @@ var mapTap = (function () {
         currentCountry = newCountry;
         dataCountries[newCountryIndex][1] = pathColorIndex;
         countriesVisited = [newCountry];
+        
+
+        var visitedString = "<p style='color:"+"black"+"'>"+currentCountry+"</p>";
+        $(".countries_visited").append(visitedString);   
         
         var endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         while(endCountryIndex === newCountryIndex){
