@@ -187,60 +187,58 @@ var mapTap = (function() {
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
-            
-            addCountryToPath(country, index);
+            if (borderDictionary[currentCountry].indexOf(country) >= 0) {
+                addCountryToPath(country, index);
+            }
         }
     }
     
     function addCountryToPath(country, index){
-        if (borderDictionary[currentCountry].indexOf(country) >= 0) {
-            currentCountry = country;
-            dataCountries[index][1] = pathColorIndex;
+        currentCountry = country;
+        dataCountries[index][1] = pathColorIndex;
 
-            //clear the last bordering highlights
-            for (var pastBorderingCountryIndex in currentBordering) {
-                var borderingCountry = currentBordering[pastBorderingCountryIndex];
-                var indexInDataCountries = countryToIndexMap[borderingCountry];
-                if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
-                    dataCountries[indexInDataCountries][1] = defaultColorIndex;
-                }
+        //clear the last bordering highlights
+        for (var pastBorderingCountryIndex in currentBordering) {
+            var borderingCountry = currentBordering[pastBorderingCountryIndex];
+            var indexInDataCountries = countryToIndexMap[borderingCountry];
+            if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+                dataCountries[indexInDataCountries][1] = defaultColorIndex;
             }
+        }
 
-            currentBordering = [];
+        currentBordering = [];
 
-            for (var borderingCountryIndex in borderDictionary[currentCountry]) {
-                var borderingCountry = borderDictionary[currentCountry][borderingCountryIndex];
-                currentBordering.push(borderingCountry);
+        for (var borderingCountryIndex in borderDictionary[currentCountry]) {
+            var borderingCountry = borderDictionary[currentCountry][borderingCountryIndex];
+            currentBordering.push(borderingCountry);
 
-                var indexInDataCountries = countryToIndexMap[borderingCountry];
+            var indexInDataCountries = countryToIndexMap[borderingCountry];
 
-                if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
-                    dataCountries[indexInDataCountries][1] = borderingColorIndex;
-                }
+            if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+                dataCountries[indexInDataCountries][1] = borderingColorIndex;
             }
+        }
 
-            var color = "black";
+        var color = "black";
 
-            if (goalCountry === country) {
-                onWin();
+        if (goalCountry === country) {
+            onWin();
+        } else {
+            if ($.inArray(country, countriesToAvoid) != -1) {
+                color = avoidColor;
+                dataCountries[index][1] = avoidColorIndex;
+                currentCash -= 50;
+                document.getElementById('cashInteger').innerHTML = currentCash;
             } else {
-                if ($.inArray(country, countriesToAvoid) != -1) {
-                    color = avoidColor;
-                    dataCountries[index][1] = avoidColorIndex;
-                    currentCash -= 50;
-                    document.getElementById('cashInteger').innerHTML = currentCash;
-                } else {
-                    currentCash -= 5;
-                    document.getElementById('cashInteger').innerHTML = currentCash;
-                }
-                drawRegionsMap()
-
-
-                var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
-                $(".countries_visited").append(visitedString);
+                currentCash -= 5;
+                document.getElementById('cashInteger').innerHTML = currentCash;
             }
+            drawRegionsMap()
 
-        }    
+
+            var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
+            $(".countries_visited").append(visitedString);
+        }
     }
 
     function onLose() {
