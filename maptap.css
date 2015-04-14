@@ -5,3 +5,7 @@
 .mapContainer{
     width: 100%; 
 }
+
+.gradBar{
+    visibility: hidden;
+}

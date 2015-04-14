@@ -99,7 +99,7 @@ var mapTap = (function() {
         "Chad": ["Niger", "Libya", "Cameroon", "Central African Republic", "Sudan"],
         "Comoros": ["Madagascar", "Mozambique"],
         "Cote d\'Ivoire": ["Guinea", "Liberia", "Mali", "Burkina Faso", "Ghana"],
-        "Democratic Republic of the Congo": ["Uganda", "Rwanda", "Burundi", "Zambia", "Angola", "Republic of the Congo", "Central African Republic", "South Sudan"],
+        "Democratic Republic of the Congo": ["Uganda", "Rwanda", "Burundi", "Zambia", "Angola", "Republic of the Congo", "Central African Republic", "South Sudan", "Tanzania"],
         "Djibouti": ["Eritrea", "Ethiopia", "Somalia"],
         "Egypt": ["Libya", "Sudan"],
         "Equatorial Guinea": ["Gabon", "Cameroon"],
@@ -140,7 +140,7 @@ var mapTap = (function() {
         "South Sudan": ["Sudan", "Ethiopia", "Kenya", "Uganda", "Democratic Republic of the Congo", "Central African Republic"],
         "Sudan": ["Egypt", "Libya", "Chad", "Eritrea", "Ethiopia", "South Sudan", "Central African Republic"],
         "Swaziland": ["South Africa", "Mozambique"],
-        "Tanzania": ["Kenya", "Burundi", "Rwanda", "Uganda", "Malawi", "Zambia", "Mozambique"],
+        "Tanzania": ["Kenya", "Burundi", "Rwanda", "Uganda", "Malawi", "Zambia", "Mozambique", "Democratic Republic of the Congo"],
         "Togo": ["Ghana", "Burkina Faso", "Benin"],
         "Tunisia": ["Algeria", "Libya"],
         "Uganda": ["South Sudan", "Kenya", "Rwanda", "Democratic Republic of the Congo", "Tanzania"],
@@ -191,6 +191,7 @@ var mapTap = (function() {
                 addCountryToPath(country, index);
             }
         }
+        
     }
     
     function addCountryToPath(country, index){
@@ -371,7 +372,6 @@ var mapTap = (function() {
         var view = View(div, model);
         exports.view = view;
         exports.model = model;
-
         newGame();
     };
 
@@ -386,9 +386,6 @@ var mapTap = (function() {
         countriesVisited = [newCountry];
 
         addCountryToPath(newCountry, newCountryIndex)
-        
-        var visitedString = "<p style='color:" + "black" + "'>" + currentCountry + "</p>";
-        $(".countries_visited").append(visitedString);
 
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         while (endCountryIndex === newCountryIndex) {
@@ -419,3 +416,4 @@ $(document).ready(function() {
     });
 
 });
+
