@@ -35,6 +35,78 @@ var mapTap = (function () {
           ['Zimbabwe', 0]
         ];
     
+        var borderDictionary = {
+            "Algeria":["Morocco","Western Sahara","Mauritania","Mali","Niger","Tunisia","Libya"],
+            "Angola":["Democratic Republic of the Congo","Zambia","Namibia"],
+            "Benin":["Togo","Burkina Faso","Niger","Nigeria"],
+            "Botswana":["Namibia","Zimbabwe","South Africa"],
+            "Burkina Faso":["Mali","Niger","Benin","Togo","Ghana","Cote d'Ivoire"],
+            "Burundi":["Rwanda","Tanzania","Democratic Republic of the Congo"],
+            "Cameroon":["Republic of the Congo","Gabon","Equatorial Guinea","Nigeria","Chad","Central African Republic"],
+            "Canary Islands":["Western Sahara","Morocco"],
+            "Cape Verde":["Mauritania","Senegal"],
+            "Central African Republic":["Republic of the Congo","Cameroon","Chad","Sudan","South Sudan", "Democratic Republic of the Congo"],
+            "Ceuta":["Morocco"],
+            "Chad":["Niger","Libya","Cameroon","Central African Republic","Sudan"],
+            "Comoros":["Madagascar","Mozambique"],
+            "Cote d'Ivoire":["Guinea","Liberia","Mali","Burkina Faso","Ghana"],
+            "Democratic Republic of the Congo":["Uganda","Rwanda","Burundi","Zambia","Angola","Republic of the Congo","Central African Republic","South Sudan"],
+            "Djibouti":["Eritrea","Ethiopia","Somalia"],
+            "Egypt":["Libya","Sudan"],
+            "Equatorial Guinea":["Gabon","Cameroon"],
+            "Eritrea":["Sudan","Ethiopia","Djibouti"],
+            "Ethiopia":["Djibouti","Somalia","Kenya","South Sudan","Sudan"],
+            "Gabon":["Equatorial Guinea","Cameroon","Republic of the Congo"],
+            "Gambia":["Senegal"],
+            "Ghana":["Cote d’Ivoire","Togo","Burkina Faso"],
+            "Guinea":["Senegal","Sierra Leone","Liberia","Ivory Coast","Mali","Guinea-Bissau"],
+            "Guinea-Bissau":["Senegal","Guinea"],
+            "Kenya":["Uganda","Tanzania","Somalia","Ethiopia","South Sudan"],
+            "Lesotho":["South Africa"],
+            "Liberia":["Sierra Leone", "Guinea","Cote d’Ivoire"],
+            "Libya":["Tunisia","Algeria","Niger","Chad","Egypt","Sudan"],
+            "Madagascar":["Mozambique","Comoros"],
+            "Madeira":[],
+            "Malawi":["Tanzania","Zambia","Mozambique"],
+            "Mali":["Algeria","Niger","Burkina Faso","Cote d’Ivoire","Guinea","Senegal","Mauritania"],
+            "Mauritania":["Western Sahara","Mali","Algeria","Senegal","Cape Verde"],
+            "Mauritius":[],
+            "Mayotte":[],
+            "Melilla":[],
+            "Morocco":["Canary Islands","Western Sahara","Algeria","Ceuta"],
+            "Mozambique":["Comoros","Madagascar","Malawi","Tanzania","South Africa","Zimbabwe","Zambia"],
+            "Namibia":["Botswana","South Africa","Angola","Zambia","Zimbabwe"],
+            "Niger":["Mali","Algeria","Libya","Chad","Nigeria","Benin","Burkina Faso"],
+            "Nigeria":["Niger","Benin","Cameroon"],
+            "Republic of the Congo":["Gabon","Cameroon","Central African Republic","Democratic Republic of the Congo"],
+            "Réunion":[],
+            "Rwanda":["Uganda","Tanzania","Burundi","Democratic Republic of the Congo"],
+            "Saint Helena":[],
+            "São Tomé and Principe":[],
+            "Senegal":["Gambia","Mauritania","Mali","Guinea-Bissau","Guinea","Cape Verde"],
+            "Seychelles":[],
+            "Sierra Leone":["Guinea","Liberia"],
+            "Somalia":["Ethiopia","Kenya","Djibouti"],
+            "South Africa":["Lesotho","Swaziland","Botswana","Namibia","Zimbabwe","Mozambique"],
+            "South Sudan":["Sudan","Ethiopia","Kenya","Uganda","Democratic Republic of the Congo","Central African Republic"],
+            "Sudan":["Egypt","Libya","Chad","Eritrea","Ethiopia","South Sudan","Central African Republic"],
+            "Swaziland":["South Africa","Mozambique"],
+            "Tanzania":["Kenya","Burundi","Rwanda","Uganda","Malawi","Zambia","Mozambique"],
+            "Togo":["Ghana","Burkina Faso","Benin"],
+            "Tunisia":["Algeria","Libya"],
+            "Uganda":["South Sudan","Kenya","Rwanda","Democratic Republic of the Congo","Tanzania"],
+            "Western Sahara":["Canary Islands","Morocco","Mauritania"],
+            "Zambia":["Angola","Democratic Republic of the Congo","Tanzania","Malawi","Mozambique","Zimbabwe","Namibia"],
+            "Zimbabwe":["Zambia","Botswana","South Africa","Mozambique","Namibia"]
+    };
+
+
+    states_dictionary={ 
+     "CT":["alex","harry"], 
+     "AK":["liza","alex"], 
+     "TX":["fred", "harry"]
+};
+    
     google.load("visualization", "1.0", {packages:["geochart"]});
     google.setOnLoadCallback(drawRegionsMap);
     
@@ -119,6 +191,8 @@ var mapTap = (function () {
             +   "<div class = 'row-fluid'>"
             +   "<div class = 'col-md-3'>"
             +       "<div class = 'row-fluid'>"
+            +           "<div class = 'cash'>" 
+            +           "</div>"
             +           "<div class = 'countries_visited'>"
             +           "</div>"
             +       "</div>"
@@ -138,6 +212,7 @@ var mapTap = (function () {
             +   "</div>"
             +"</div>");
         
+        $(".cash").append("<h1>Cash Remaining</h1>");
         $(".countries_visited").append("<h1>Countries Visited</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
