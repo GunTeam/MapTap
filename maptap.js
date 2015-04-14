@@ -5,6 +5,8 @@ var mapTap = (function () {
     var areas;
     
     var currentCountry;
+    var goalCountry;
+    var currentCash = 125;
     
     var pathColor = '#5522cc';
     var borderColor = '#cc0000';
@@ -12,7 +14,7 @@ var mapTap = (function () {
     var goalColor = '#0C6E30';
     var avoidColor = 'red';
     
-    var dataCountries = [
+    var dataCountries; /* = [
           ['Country',   'Latitude'],
           ['Algeria', 0], ['Angola', 0], ['Benin', 0], ['Botswana', 0],
           ['Burkina Faso', 0], ['Burundi', 0], ['Cameroon', 0],
@@ -35,7 +37,7 @@ var mapTap = (function () {
           ['Swaziland', 0], ['Tanzania', 0], ['Togo', 0], ['Tunisia', 0],
           ['Uganda', 0], ['Western Sahara', 0], ['Zambia', 0],
           ['Zimbabwe', 0]
-        ];
+        ]; */
     
         var borderDictionary = {
             "Algeria":["Morocco","Western Sahara","Mauritania","Mali","Niger","Tunisia","Libya"],
@@ -137,7 +139,13 @@ var mapTap = (function () {
                 if($.inArray(country, countriesToAvoid) != -1){
                     color = avoidColor; 
                     dataCountries[index][1] = .5;
-
+                    currentCash -= 50; 
+                    document.getElementById('cashInteger').innerHTML = currentCash;
+                } else if (goalCountry === country){
+                    onWin();
+                } else{
+                    currentCash -= 5; 
+                    document.getElementById('cashInteger').innerHTML = currentCash;
                 }
                 drawRegionsMap()
 
@@ -146,6 +154,54 @@ var mapTap = (function () {
                 $(".countries_visited").append(visitedString);    
             }
         }
+    }
+    
+    function onLose() {
+        if (confirm("You ran out of goods! Try again?") == true){
+            newGame();
+        }
+    }
+    
+    function onWin() {
+        if (confirm("You won! Try again?") == true){
+            newGame();
+        }
+    }
+    
+    function resetGame(){
+        dataCountries = [
+          ['Country',   'Latitude'],
+          ['Algeria', 0], ['Angola', 0], ['Benin', 0], ['Botswana', 0],
+          ['Burkina Faso', 0], ['Burundi', 0], ['Cameroon', 0],
+          ['Canary Islands', 0], ['Cape Verde', 0],
+          ['Central African Republic', 0], ['Ceuta', 0], ['Chad', 0],
+          ['Comoros', 0], ['Cote d\'Ivoire', 0],
+          ['Democratic Republic of the Congo', 0], ['Djibouti', 0],
+          ['Egypt', 0], ['Equatorial Guinea', 0], ['Eritrea', 0],
+          ['Ethiopia', 0], ['Gabon', 0], ['Gambia', 0], ['Ghana', 0],
+          ['Guinea', 0], ['Guinea-Bissau', 0], ['Kenya', 0],
+          ['Lesotho', 0], ['Liberia', 0], ['Libya', 0], ['Madagascar', 0],
+          ['Madeira', 0], ['Malawi', 0], ['Mali', 0], ['Mauritania', 0],
+          ['Mauritius', 0], ['Mayotte', 0], ['Melilla', 0],
+          ['Morocco', 0], ['Mozambique', 0], ['Namibia', 0],
+          ['Niger', 0], ['Nigeria', 0], ['Republic of the Congo', 0],
+          ['Réunion', 0], ['Rwanda', 0], ['Saint Helena', 0],
+          ['São Tomé and Principe', 0], ['Senegal', 0],
+          ['Seychelles', 0], ['Sierra Leone', 0], ['Somalia', 0],
+          ['Sudan', 0], ['South Africa', 0], ['South Sudan', 0],
+          ['Swaziland', 0], ['Tanzania', 0], ['Togo', 0], ['Tunisia', 0],
+          ['Uganda', 0], ['Western Sahara', 0], ['Zambia', 0],
+          ['Zimbabwe', 0]
+        ];
+        
+        console.log($(".objectivesTab"));
+        while($(".objectivesTab").firstChild){
+            $(".objectivesTab").removeChild($(".objectivesTab").firstChild);
+        }
+        
+        currentCash = 125;
+        document.getElementById('cashInteger').innerHTML = currentCash;
+
     }
 
     function Model(){
@@ -189,7 +245,8 @@ var mapTap = (function () {
             +   "<div class = 'row-fluid'>"
             +   "<div class = 'col-md-3'>"
             +       "<div class = 'row-fluid'>"
-            +           "<div class = 'cash'>" 
+            +           "<div class = 'cash'>"
+            +               "<p id='cashInteger'>125</p>"
             +           "</div>"
             +           "<div class = 'countries_visited'>"
             +           "</div>"
@@ -210,7 +267,7 @@ var mapTap = (function () {
             +   "</div>"
             +"</div>");
         
-        $(".cash").append("<h1>Cash Remaining</h1>");
+        $(".cash").prepend("<h1>Cash Remaining</h1>");
         $(".countries_visited").append("<h1>Countries Visited</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
@@ -254,6 +311,8 @@ var mapTap = (function () {
     };
     
     var newGame = function(){
+        resetGame();
+        
         var newCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         var newCountry = dataCountries[newCountryIndex][0];
         currentCountry = newCountry;
@@ -264,6 +323,7 @@ var mapTap = (function () {
             endCountryIndex = Math.floor(Math.random()*(dataCountries.length-1))+1;
         }
         var endCountry = dataCountries[endCountryIndex][0];
+        goalCountry = endCountry;
         
         var objectiveString = "<p>Starting at <span style='color:"+pathColor+"'>"+newCountry+"</span>, try to get to <span style='color:"+goalColor+"'>"+endCountry+"</span></p>";
         $(".objectivesTab").append(objectiveString);   
