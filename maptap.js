@@ -385,11 +385,7 @@ var mapTap = (function() {
         dataCountries[newCountryIndex][1] = pathColorIndex;
         countriesVisited = [newCountry];
 
-<<<<<<< Updated upstream
-        addCountryToPath(newCountry, newCountryIndex)
-=======
         addCountryToPath(newCountry, newCountryIndex);
->>>>>>> Stashed changes
 
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         while (endCountryIndex === newCountryIndex) {
