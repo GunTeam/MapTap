@@ -12,10 +12,11 @@ body {
     width: 100%; 
 }
 
-<<<<<<< Updated upstream
 .gradBar{
     visibility: hidden;
-=======
+    
+}
+
 .menuButton{
     margin: auto;
     width: 200px;
@@ -33,5 +34,4 @@ body {
 .title > h1 {
     font-size: 100pt;
     text-align: center;
->>>>>>> Stashed changes
 }
