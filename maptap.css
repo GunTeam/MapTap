@@ -2,6 +2,7 @@ body {
 /*    background-color: #8B5742;*/
     background-color: #8B864E;
     font-family: 'Poiret One', cursive;
+    background-size: 400% 100%;
 }
 
 #mapDiv {
@@ -29,8 +30,12 @@ body {
     font-size: 48px;
     
 }
-
+    
 .title > h1 {
     font-size: 100pt;
     text-align: center;
+}
+
+.bgimage {
+    height: 100%;
 }
