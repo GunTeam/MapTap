@@ -18,9 +18,9 @@ var mapTap = (function() {
     var avoidColor = 'red';
     var defaultColorIndex = 0;
     var avoidColorIndex = 1;
-    var borderingColorIndex = 2;
-    var pathColorIndex = 3;
-    var traderLocationColorIndex = 4;
+    var pathColorIndex = 2;
+    var traderLocationColorIndex = 3;
+    var borderingColorIndex = 4;
 
     var countriesVisited = [];
 
@@ -171,7 +171,7 @@ var mapTap = (function() {
         var options = {
             region: '002',
             colorAxis: {
-                colors: [defaultColor, borderColor, borderingColor, pathColor, traderLocationColor]
+                colors: [defaultColor, borderColor, pathColor , traderLocationColor, borderingColor]
             },
             datalessRegionColor: '#ffffff',
             defaultColor: '#aaaaaa',
@@ -197,8 +197,24 @@ var mapTap = (function() {
     }
     
     function addCountryToPath(country, index){
+        
+        var color = "black";
+
         currentCountry = country;
-        dataCountries[index][1] = traderLocationColorIndex;
+        if ($.inArray(country, countriesToAvoid) != -1) {
+            color = avoidColor;
+            currentCash -= 50;
+            document.getElementById('cashInteger').innerHTML = currentCash;
+                dataCountries[index][1] = avoidColorIndex;
+
+        }
+        else{
+            currentCash -= 5;
+            document.getElementById('cashInteger').innerHTML = currentCash;
+                dataCountries[index][1] = traderLocationColorIndex;
+
+        }
+        
 
         //clear the last bordering highlights
         for (var pastBorderingCountryIndex in currentBordering) {
@@ -224,29 +240,17 @@ var mapTap = (function() {
                 dataCountries[indexInDataCountries][1] = pathColorIndex;
             }
         }
-
-        var color = "black";
-
+        
         if (goalCountry === country) {
             onWin();
         } else {
-            if ($.inArray(country, countriesToAvoid) != -1) {
-                color = avoidColor;
-                dataCountries[index][1] = avoidColorIndex;
-                currentCash -= 50;
-                document.getElementById('cashInteger').innerHTML = currentCash;
-            } else {
-                currentCash -= 5;
-                document.getElementById('cashInteger').innerHTML = currentCash;
-            }
             drawRegionsMap()
-
 
             var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
             $(".countries_visited").append(visitedString);
             
-            console.log(dataCountries);
         }
+        
     }
 
     function onLose() {
