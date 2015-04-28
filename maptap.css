@@ -55,7 +55,7 @@ body {
     position: absolute;
     margin: 50px;
     padding: 20px;
-    background-color: rgba(171, 137, 240, 0.4);
+    background-color: rgba(171, 137, 240, 0.5);
     width: 20%
 }
 
@@ -113,11 +113,19 @@ td{
 
 .objectives > img {
     display: inline;
-    height: 15px;
+    height: 35px;
     position: relative;
     top: -3px;
 }
 .objectives > p {
     display: inline;
     margin: 5px;
+}
+
+.objectivesTab{
+    font-size: 20pt;
+}
+
+.avoidTab p{
+    font-size: 20pt;
 }
