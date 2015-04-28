@@ -39,3 +39,20 @@ body {
 .bgimage {
     height: 100%;
 }
+
+.column{
+    top: 0;
+    position: absolute;
+    margin: 50px;
+    padding: 10px;
+    background-color: rgba(171, 137, 240, 0.4);
+    
+}
+
+.column1{
+    left: 0;
+}
+
+.column2{
+    right: 0;
+}

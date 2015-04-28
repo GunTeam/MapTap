@@ -104,7 +104,7 @@ var mapTap = (function() {
         "Egypt": ["Libya", "Sudan"],
         "Equatorial Guinea": ["Gabon", "Cameroon"],
         "Eritrea": ["Sudan", "Ethiopia", "Djibouti"],
-        "Ethiopia": ["Djibouti", "Somalia", "Kenya", "South Sudan", "Sudan"],
+        "Ethiopia": ["Djibouti", "Somalia", "Kenya", "South Sudan", "Sudan", "Eritrea"],
         "Gabon": ["Equatorial Guinea", "Cameroon", "Republic of the Congo"],
         "Gambia": ["Senegal"],
         "Ghana": ["Cote d\'Ivoire", "Togo", "Burkina Faso"],
@@ -333,8 +333,12 @@ var mapTap = (function() {
     function View(div, model) {
 
         div.append("<div class = 'container-fluid well'>"
-            +   "<div class = 'row-fluid'>"
-            +   "<div class = 'col-md-3'>"
+            +   "<div class = 'row-fluid'>"              
+            +       "<div class = 'container mapContainer'>"
+            +           "<div id = 'mapDiv'>"
+            +           "</div>"
+            +       "</div>"
+            +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
             +           "<div class = 'cash'>"
             +               "<p id='cashInteger'>125</p>"
@@ -342,14 +346,8 @@ var mapTap = (function() {
             +           "<div class = 'countries_visited'>"
             +           "</div>"
             +       "</div>"
-            +   "</div>"                     
-            +   "<div class = 'col-md-6'>"
-            +       "<div class = 'container mapContainer'>"
-            +           "<div id = 'mapDiv'>"
-            +           "</div>"
-            +       "</div>"
-            +   "</div>"   
-            +   "<div class = 'col-md-3'>"
+            +   "</div>"       
+            +   "<div class = 'column column2'>"
             +           "<div class = 'objectivesTab'>"
             +           "</div>"
             +           "<div class = 'avoidTab'>"
