@@ -414,7 +414,5 @@ $(document).ready(function() {
     });
 
 });
-
-
-    
+document.getElementById("YourScore").innerHTML = "Your Score:" currentCash;
 };
