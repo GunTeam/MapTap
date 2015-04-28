@@ -8,7 +8,7 @@ var mapTap = (function() {
     var goalCountry;
     var secondaryGoalCountry;
     var currentCash;
-    var startingCash = 125;
+    var startingCash = 155;
 
     var pathColor = '#5522cc';
     var borderColor = '#cc0000';
@@ -206,13 +206,13 @@ var mapTap = (function() {
             color = avoidColor;
             currentCash -= 50;
             document.getElementById('cashInteger').innerHTML = currentCash;
-                dataCountries[index][1] = avoidColorIndex;
+            dataCountries[index][1] = avoidColorIndex;
 
         }
         else{
             currentCash -= 5;
             document.getElementById('cashInteger').innerHTML = currentCash;
-                dataCountries[index][1] = traderLocationColorIndex;
+            dataCountries[index][1] = traderLocationColorIndex;
 
         }
         
@@ -363,7 +363,7 @@ var mapTap = (function() {
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
             +           "<div class = 'cash'>"
-            +               "<p id='cashInteger'>125</p>"
+            +               "<p id='cashInteger'>"+startingCash+"</p>"
             +           "</div>"
             +           "<div class = 'countries_visited'>"
             +           "</div>"
@@ -379,7 +379,7 @@ var mapTap = (function() {
             +"</div>");
         
 
-        $(".cash").prepend("<h1>Cash Remaining</h1>");
+        $(".cash").prepend("<p>$</p>");
         $(".countries_visited").append("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
