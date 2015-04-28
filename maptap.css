@@ -96,3 +96,14 @@ td{
     
     font-size: 15pt;
 }
+
+.objectives > img {
+    display: inline;
+    height: 15px;
+    position: relative;
+    top: -3px;
+}
+.objectives > p {
+    display: inline;
+    margin: 5px;
+}

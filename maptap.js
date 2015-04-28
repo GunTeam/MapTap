@@ -451,18 +451,18 @@ var mapTap = (function() {
         goalCountry = endCountry;
         
         var secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex) {
+        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex || (countriesToAvoid.indexOf(dataCountries[secondaryCountryIndex][0])>= 0)) {
             secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         var secondaryCountry = dataCountries[secondaryCountryIndex][0];
         secondaryGoalCountry = secondaryCountry;
 
 //        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
-        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar1'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
+        var objectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar1'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></div>";
         $(".objectivesTab").append(objectiveString);
-        var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar2'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
+        var secondaryObjectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar2'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div>";
         $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px' id='objectiveStar3'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div></div>";
+        var moneyObjective = "<div class='objectives'><img src='starFill.png' id='objectiveStar3'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div>";
         $(".objectivesTab").append(moneyObjective);
         
         
