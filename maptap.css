@@ -51,7 +51,7 @@ body {
     margin: 50px;
     padding: 20px;
     background-color: rgba(171, 137, 240, 0.4);
-    
+    width: 20%
 }
 
 .column1{
@@ -70,3 +70,20 @@ body {
     width: 100%;
     pointer-events:none;
 }
+
+.countryTable{
+    height: 200px;
+    overflow: auto;
+    display: table;
+}
+
+tbody{
+    height: 200px;
+    display: block;
+    overflow: auto;
+}
+
+tr{
+    display: table;
+}
+

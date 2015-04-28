@@ -24,6 +24,8 @@ var mapTap = (function() {
     var borderingColorIndex = 2;
 
     var countriesVisited = [];
+    
+    var numCountries = 0;
 
     var dataCountries = [
         ['Country', 'Latitude'],
@@ -199,6 +201,8 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         
+        numCountries += 1;
+        
         var color = 'rgb(230, 14, 230)';
 
         currentCountry = country;
@@ -215,6 +219,7 @@ var mapTap = (function() {
             dataCountries[index][1] = traderLocationColorIndex;
 
         }
+        
         
         if (currentCash < 50) {
                 $("#objectiveStar3").attr("src","starOutline.png");
@@ -255,11 +260,21 @@ var mapTap = (function() {
                 $("#objectiveStar2").attr("src","starFill.png");
             }
 
-            var visitedString = "<h2 id='countryLabel' style='color:" + color + "'>" + country + "</h2>";
-            $("#countryLabel").remove();
-            $(".countries_visited").append(visitedString);
+            var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
+//            $("#countryLabel").remove();
+            $(".countryTableBody").prepend(visitedString);
             
+            
+            for(var i = 1; i <numCountries; i++){
+                $("#country"+i).css("color",pathColor);
+            }
         }
+        
+    }
+    
+    function drawCashLabel(lostCash){
+        var canvas = document.getElementById("traderCanvas");
+        var ctx = canvas.getContext("2d");   
         
     }
 
@@ -336,16 +351,16 @@ var mapTap = (function() {
         ];
 
         $(".objectivesTab").empty();
-        $(".countries_visited").empty();
+//        $(".countries_visited").empty();
         $(".avoidTab").empty();
+        $(".countryTableBody").empty();
 
-        $(".countries_visited").append("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
 
         currentCash = startingCash;
         document.getElementById('cashInteger').innerHTML = currentCash;
-
+        numCountries = 0;
     }
 
     function Model() {
@@ -367,6 +382,7 @@ var mapTap = (function() {
             +               "<p id='cashInteger'>"+startingCash+"</p>"
             +           "</div>"
             +           "<div class = 'countries_visited'>"
+            +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
             +           "</div>"
             +       "</div>"
             +   "</div>"       
@@ -381,7 +397,7 @@ var mapTap = (function() {
         
 
         $(".cash").prepend("<p>$</p>");
-        $(".countries_visited").append("<h1>You are in</h1>");
+        $(".countries_visited").prepend("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
     };
