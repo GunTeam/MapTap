@@ -22,6 +22,7 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
+    var numberOfAvoidCountries = 4;
 
     var countriesVisited = [];
     
@@ -163,7 +164,7 @@ var mapTap = (function() {
     var countriesToAvoid = [];
     
     var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-    for (var i = 0;i < 4; i++){
+    for (var i = 0;i < numberOfAvoidCountries; i++){
         while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
             avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
@@ -230,11 +231,11 @@ var mapTap = (function() {
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }
-        document.getElementById('cashInteger').innerHTML = currentCash;
+        document.getElementById('cashInteger').innerHTML = '$' + currentCash;
 
         
         if (currentCash <= 0) {
-            document.getElementById('cashInteger').innerHTML = 0;
+            document.getElementById('cashInteger').innerHTML ='$' + 0;
             onLose();    
         }
         else if (currentCash < 50) {
@@ -367,7 +368,6 @@ var mapTap = (function() {
         ];
 
         $(".objectivesTab").empty();
-//        $(".countries_visited").empty();
         $(".avoidTab").empty();
         $(".countryTableBody").empty();
 
@@ -394,9 +394,9 @@ var mapTap = (function() {
             +       "</div>"
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
-            +           "<div class = 'cash'>"
-            +               "<h1 id='cashInteger' style='color:green'>"+startingCash+"</h1>"
-            +           "</div>"
+//            +           "<div class = 'cash'>"
+            +               "<h1 id='cashInteger' style='color:green'></h1>"
+//            +           "</div>"
             +           "<div class = 'countries_visited'>"
             +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
             +           "</div>"
