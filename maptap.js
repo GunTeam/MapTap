@@ -14,11 +14,13 @@ var mapTap = (function() {
     var defaultColor = '#aaaaaa';
     var borderingColor = '#ccdddd';
     var goalColor = '#0C6E30';
+    var traderLocationColor = '#E60EE6';
     var avoidColor = 'red';
     var defaultColorIndex = 0;
     var avoidColorIndex = 1;
     var borderingColorIndex = 2;
     var pathColorIndex = 3;
+    var traderLocationColorIndex = 4;
 
     var countriesVisited = [];
 
@@ -169,7 +171,7 @@ var mapTap = (function() {
         var options = {
             region: '002',
             colorAxis: {
-                colors: [defaultColor, borderColor, borderingColor, pathColor]
+                colors: [defaultColor, borderColor, borderingColor, pathColor, traderLocationColor]
             },
             datalessRegionColor: '#ffffff',
             defaultColor: '#aaaaaa',
@@ -196,13 +198,13 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         currentCountry = country;
-        dataCountries[index][1] = pathColorIndex;
+        dataCountries[index][1] = traderLocationColorIndex;
 
         //clear the last bordering highlights
         for (var pastBorderingCountryIndex in currentBordering) {
             var borderingCountry = currentBordering[pastBorderingCountryIndex];
             var indexInDataCountries = countryToIndexMap[borderingCountry];
-            if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+            if (dataCountries[indexInDataCountries][1] !== traderLocationColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex && dataCountries[indexInDataCountries][1] !== pathColorIndex) {
                 dataCountries[indexInDataCountries][1] = defaultColorIndex;
             }
         }
@@ -215,8 +217,11 @@ var mapTap = (function() {
 
             var indexInDataCountries = countryToIndexMap[borderingCountry];
 
-            if (dataCountries[indexInDataCountries][1] !== pathColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex) {
+            if (dataCountries[indexInDataCountries][1] !== traderLocationColorIndex && dataCountries[indexInDataCountries][1] !== avoidColorIndex && dataCountries[indexInDataCountries][1] !== pathColorIndex) {
                 dataCountries[indexInDataCountries][1] = borderingColorIndex;
+            }
+            else if(dataCountries[indexInDataCountries][1] === traderLocationColorIndex) {
+                dataCountries[indexInDataCountries][1] = pathColorIndex;
             }
         }
 
@@ -239,6 +244,8 @@ var mapTap = (function() {
 
             var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
             $(".countries_visited").append(visitedString);
+            
+            console.log(dataCountries);
         }
     }
 
