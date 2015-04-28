@@ -6,6 +6,7 @@ var mapTap = (function() {
 
     var currentCountry;
     var goalCountry;
+    var secondaryGoalCountry;
     var currentCash;
     var startingCash = 125;
 
@@ -404,8 +405,16 @@ var mapTap = (function() {
         }
         var endCountry = dataCountries[endCountryIndex][0];
         goalCountry = endCountry;
+        
+        var secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex) {
+            secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        var secondaryCountry = dataCountries[secondaryCountryIndex][0];
+        secondaryGoalCountry = secondaryCountry;
 
-        var objectiveString = "<p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p>";
+//        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
+        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
         $(".objectivesTab").append(objectiveString);
 
         for (var countryToAvoidIndex in countriesToAvoid) {
