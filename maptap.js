@@ -198,7 +198,7 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         
-        var color = "black";
+        var color = 'rgb(230, 14, 230)';
 
         currentCountry = country;
         if ($.inArray(country, countriesToAvoid) != -1) {
@@ -246,7 +246,9 @@ var mapTap = (function() {
         } else {
             drawRegionsMap()
 
-            var visitedString = "<p style='color:" + color + "'>" + country + "</p>";
+            var visitedString = "<h2 id='countryLabel' style='color:" + color + "'>" + country + "</h2>";
+//            $(".countries_visited").append(visitedString);
+            $("#countryLabel").remove();
             $(".countries_visited").append(visitedString);
             
         }
@@ -328,7 +330,7 @@ var mapTap = (function() {
         $(".countries_visited").empty();
         $(".avoidTab").empty();
 
-        $(".countries_visited").append("<h1>Countries Visited</h1>");
+        $(".countries_visited").append("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
 
@@ -369,7 +371,7 @@ var mapTap = (function() {
         
 
         $(".cash").prepend("<h1>Cash Remaining</h1>");
-        $(".countries_visited").append("<h1>Countries Visited</h1>");
+        $(".countries_visited").append("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
     };
