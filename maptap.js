@@ -437,12 +437,11 @@ var mapTap = (function() {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         
-        var newCountry = dataCountries[newCountryIndex][0];
-        currentCountry = newCountry;
+        currentCountry = dataCountries[newCountryIndex][0];
         dataCountries[newCountryIndex][1] = traderLocationColorIndex;
-        countriesVisited = [newCountry];
+        countriesVisited = [currentCountry];
 
-        addCountryToPath(newCountry, newCountryIndex);
+        addCountryToPath(currentCountry, newCountryIndex);
 
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         while (endCountryIndex === newCountryIndex) {
