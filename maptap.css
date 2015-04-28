@@ -62,6 +62,13 @@ body {
     right: 0;
 }
 
+#traderCanvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
 .canvas{
     pointer-events:none;
 }

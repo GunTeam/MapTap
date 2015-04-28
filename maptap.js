@@ -359,6 +359,7 @@ var mapTap = (function() {
             +       "<div class = 'container mapContainer'>"
             +           "<div id = 'mapDiv'>"
             +           "</div>"
+            +           '<canvas id="traderCanvas"> </canvas>'
             +       "</div>"
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
