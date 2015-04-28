@@ -409,6 +409,7 @@ var mapTap = (function() {
             +           "</div>"
             +   "</div>"     
             +   "</div>"
+            + "<div class='whiteCover'></div>"
             +"</div>");
         
 
@@ -416,6 +417,7 @@ var mapTap = (function() {
         $(".cash").prepend("<h1 style='color:green'>$</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
+        
     };
 
 
@@ -483,6 +485,7 @@ var mapTap = (function() {
 $(document).ready(function() {
     $('.maptap').each(function() {
         mapTap.setup($(this));
+        $(this).css("position", "absolute");
     });
 
 });
