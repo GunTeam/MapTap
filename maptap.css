@@ -30,7 +30,11 @@ body {
     font-size: 48px;
     
 }
-    
+
+.menuButton > a{
+    color: inherit;
+}
+
 .title > h1 {
     font-size: 100pt;
     text-align: center;
