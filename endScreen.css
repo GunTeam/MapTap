@@ -1,0 +1,94 @@
+body {
+/*    background-color: #8B5742;*/
+    background-color: #FFFFFF;
+    font-family: 'Poiret One', cursive;
+    background-size: 400% 100%;
+}
+
+#mapDiv {
+    width: 100%;
+}                                                       
+
+.mapContainer{
+    width: 100%; 
+}
+
+.gradBar{
+    visibility: hidden;
+}
+
+.menuButton{
+    margin: auto;
+    width: 200px;
+    height: 70px;
+    background-color: #607D8B;
+    border: solid 2px #546E7A;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    font-size: 48px;
+    
+}
+    
+.title > h1 {
+    font-size: 100pt;
+    text-align: center;
+}
+
+.bgimage {
+    height: 100%;
+}
+
+.column{
+    top: 0;
+    position: absolute;
+    margin: 50px;
+    padding: 10px;
+    background-color: rgba(171, 137, 240, 0.4);
+    
+}
+
+.column1{
+    left: 0;
+}
+
+.column2{
+    right: 0;
+}
+#playAgain{
+    position: absolute;
+    left: 550px;
+    top: 200px;
+    margin: auto;
+    width: 200px;
+    height: 70px;
+    background-color: #607D8B;
+    border: solid 2px #546E7A;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    font-size: 20px;
+}
+#mainMenu{
+    position: absolute;
+    left: 550px;
+    top: 300px;
+    margin: auto;
+    width: 200px;
+    height: 70px;
+    background-color: #607D8B;
+    border: solid 2px #546E7A;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    font-size: 20px;
+}
+p{
+    position: absolute;
+    left: 575px;
+    top: 150px;
+    font-size: 30px;
+}
