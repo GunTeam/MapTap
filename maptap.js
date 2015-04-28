@@ -158,8 +158,22 @@ var mapTap = (function() {
         packages: ["geochart"]
     });
     google.setOnLoadCallback(drawRegionsMap);
+    
+    //randomized avoid country list
+    var countriesToAvoid = [];
+    
+    var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+    for (var i = 0;i < 4; i++){
+        while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
+            avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        countriesToAvoid.push(dataCountries[avoidIndex][0]);
+    }
+    
 
-    var countriesToAvoid = ['Comoros', 'Senegal', 'Zambia', 'Kenya'];
+    console.log(countriesToAvoid);
+
+    
 
     //Make a map so that when given a country, we know what entry of dataCountries it corresponds to
     for (var dataCountryInd = 1; dataCountryInd < dataCountries.length; dataCountryInd++) {
@@ -415,10 +429,14 @@ var mapTap = (function() {
     };
 
     var newGame = function() {
-
+        
         resetGame();
 
         var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        while ((countriesToAvoid.indexOf(dataCountries[newCountryIndex][0])>= 0)) {
+            newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        
         var newCountry = dataCountries[newCountryIndex][0];
         currentCountry = newCountry;
         dataCountries[newCountryIndex][1] = traderLocationColorIndex;
