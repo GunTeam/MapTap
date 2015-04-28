@@ -216,6 +216,10 @@ var mapTap = (function() {
 
         }
         
+        if (currentCash < 50) {
+                $("#objectiveStar3").attr("src","starOutline.png");
+        }
+        
 
         //clear the last bordering highlights
         for (var pastBorderingCountryIndex in currentBordering) {
@@ -244,11 +248,14 @@ var mapTap = (function() {
         
         if (goalCountry === country) {
             onWin();
-        } else {
+        } else{
             drawRegionsMap()
+            
+            if (secondaryGoalCountry === country) {
+                $("#objectiveStar2").attr("src","starFill.png");
+            }
 
             var visitedString = "<h2 id='countryLabel' style='color:" + color + "'>" + country + "</h2>";
-//            $(".countries_visited").append(visitedString);
             $("#countryLabel").remove();
             $(".countries_visited").append(visitedString);
             
@@ -263,6 +270,7 @@ var mapTap = (function() {
     }
 
     function onWin() {
+        $("#objectiveStar1").attr("src","starFill.png");
         if (confirm("You won! Try again?") == true) {
             newGame();
         }
@@ -414,11 +422,11 @@ var mapTap = (function() {
         secondaryGoalCountry = secondaryCountry;
 
 //        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
-        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
+        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar1'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
         $(".objectivesTab").append(objectiveString);
-        var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
+        var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar2'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
         $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>50</span> dollars remaining</p></div></div>";
+        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px' id='objectiveStar3'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>50</span> dollars remaining</p></div></div>";
         $(".objectivesTab").append(moneyObjective);
         
         
