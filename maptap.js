@@ -22,6 +22,7 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
+    var numberOfAvoidCountries = 4;
 
     var countriesVisited = [];
     
@@ -163,7 +164,7 @@ var mapTap = (function() {
     var countriesToAvoid = [];
     
     var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-    for (var i = 0;i < 4; i++){
+    for (var i = 0;i < numberOfAvoidCountries; i++){
         while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
             avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
@@ -230,11 +231,11 @@ var mapTap = (function() {
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }
-        document.getElementById('cashInteger').innerHTML = currentCash;
+        document.getElementById('cashInteger').innerHTML = '$' + currentCash;
 
         
         if (currentCash <= 0) {
-            document.getElementById('cashInteger').innerHTML = 0;
+            document.getElementById('cashInteger').innerHTML ='$' + 0;
             onLose();    
         }
         else if (currentCash < 50) {
@@ -367,7 +368,6 @@ var mapTap = (function() {
         ];
 
         $(".objectivesTab").empty();
-//        $(".countries_visited").empty();
         $(".avoidTab").empty();
         $(".countryTableBody").empty();
 
@@ -394,9 +394,9 @@ var mapTap = (function() {
             +       "</div>"
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
-            +           "<div class = 'cash'>"
-            +               "<h1 id='cashInteger' style='color:green'>"+startingCash+"</h1>"
-            +           "</div>"
+//            +           "<div class = 'cash'>"
+            +               "<h1 id='cashInteger' style='color:green'></h1>"
+//            +           "</div>"
             +           "<div class = 'countries_visited'>"
             +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
             +           "</div>"
@@ -439,33 +439,32 @@ var mapTap = (function() {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         
-        var newCountry = dataCountries[newCountryIndex][0];
-        currentCountry = newCountry;
+        currentCountry = dataCountries[newCountryIndex][0];
         dataCountries[newCountryIndex][1] = traderLocationColorIndex;
-        countriesVisited = [newCountry];
+        countriesVisited = [currentCountry];
 
-        addCountryToPath(newCountry, newCountryIndex);
+        addCountryToPath(currentCountry, newCountryIndex);
 
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (endCountryIndex === newCountryIndex) {
+        while (endCountryIndex === newCountryIndex || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
             endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         var endCountry = dataCountries[endCountryIndex][0];
         goalCountry = endCountry;
         
         var secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex) {
+        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex || (countriesToAvoid.indexOf(dataCountries[secondaryCountryIndex][0])>= 0)) {
             secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         var secondaryCountry = dataCountries[secondaryCountryIndex][0];
         secondaryGoalCountry = secondaryCountry;
 
 //        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
-        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar1'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
+        var objectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar1'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></div>";
         $(".objectivesTab").append(objectiveString);
-        var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar2'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
+        var secondaryObjectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar2'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div>";
         $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px' id='objectiveStar3'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div></div>";
+        var moneyObjective = "<div class='objectives'><img src='starFill.png' id='objectiveStar3'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div>";
         $(".objectivesTab").append(moneyObjective);
         
         

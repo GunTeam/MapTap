@@ -109,6 +109,15 @@ td{
     height: 20%;
     bottom: 0;
     left: 0;
-    
+}
 
+.objectives > img {
+    display: inline;
+    height: 15px;
+    position: relative;
+    top: -3px;
+}
+.objectives > p {
+    display: inline;
+    margin: 5px;
 }
