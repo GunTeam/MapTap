@@ -205,18 +205,21 @@ var mapTap = (function() {
         if ($.inArray(country, countriesToAvoid) != -1) {
             color = avoidColor;
             currentCash -= 50;
-            document.getElementById('cashInteger').innerHTML = currentCash;
             dataCountries[index][1] = avoidColorIndex;
 
         }
         else{
             currentCash -= 5;
-            document.getElementById('cashInteger').innerHTML = currentCash;
             dataCountries[index][1] = traderLocationColorIndex;
-
         }
+        document.getElementById('cashInteger').innerHTML = currentCash;
+
         
-        if (currentCash < 50) {
+        if (currentCash <= 0) {
+            document.getElementById('cashInteger').innerHTML = 0;
+            onLose();    
+        }
+        else if (currentCash < 50) {
                 $("#objectiveStar3").attr("src","starOutline.png");
         }
         
@@ -364,7 +367,7 @@ var mapTap = (function() {
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
             +           "<div class = 'cash'>"
-            +               "<p id='cashInteger'>"+startingCash+"</p>"
+            +               "<h1 id='cashInteger' style='color:green'>"+startingCash+"</h1>"
             +           "</div>"
             +           "<div class = 'countries_visited'>"
             +           "</div>"
@@ -380,7 +383,7 @@ var mapTap = (function() {
             +"</div>");
         
 
-        $(".cash").prepend("<p>$</p>");
+        $(".cash").prepend("<h1 style='color:green'>$</h1>");
         $(".countries_visited").append("<h1>You are in</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
@@ -427,7 +430,7 @@ var mapTap = (function() {
         $(".objectivesTab").append(objectiveString);
         var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px' id='objectiveStar2'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
         $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px' id='objectiveStar3'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>50</span> dollars remaining</p></div></div>";
+        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px' id='objectiveStar3'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div></div>";
         $(".objectivesTab").append(moneyObjective);
         
         
