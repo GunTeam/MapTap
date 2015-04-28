@@ -398,7 +398,7 @@ var mapTap = (function() {
             +"</div>");
         
 
-        $(".countries_visited").prepend("<h1>You are in</h1>");
+        $(".countries_visited").prepend("<h1>Traveled to: </h1>");
         $(".cash").prepend("<h1 style='color:green'>$</h1>");
         $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
