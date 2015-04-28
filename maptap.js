@@ -416,7 +416,12 @@ var mapTap = (function() {
 //        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
         var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
         $(".objectivesTab").append(objectiveString);
-
+        var secondaryObjectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div></div>";
+        $(".objectivesTab").append(secondaryObjectiveString);
+        var moneyObjective = "<div class='row'><div class='span2'><img src='starFill.png' height='15px'></div><div class='span4'><p>Have <span style='color:" + goalColor + "'>50</span> dollars remaining</p></div></div>";
+        $(".objectivesTab").append(moneyObjective);
+        
+        
         for (var countryToAvoidIndex in countriesToAvoid) {
             var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
             var avoidString = "<p><span style='color:" + avoidColor + "'>" + countryToAvoid + "</span></p>";
