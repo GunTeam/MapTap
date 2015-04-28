@@ -444,7 +444,7 @@ var mapTap = (function() {
         addCountryToPath(currentCountry, newCountryIndex);
 
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (endCountryIndex === newCountryIndex) {
+        while (endCountryIndex === newCountryIndex || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
             endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         var endCountry = dataCountries[endCountryIndex][0];
