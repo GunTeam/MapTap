@@ -11,7 +11,7 @@ var mapTap = (function() {
 
     var pathColor = '#5522cc';
     var borderColor = '#cc0000';
-    var defaultColor = '#ffffff';
+    var defaultColor = '#aaaaaa';
     var borderingColor = '#ccdddd';
     var goalColor = '#0C6E30';
     var avoidColor = 'red';
@@ -172,7 +172,7 @@ var mapTap = (function() {
                 colors: [defaultColor, borderColor, borderingColor, pathColor]
             },
             datalessRegionColor: '#ffffff',
-            defaultColor: '#ffffff',
+            defaultColor: '#aaaaaa',
             tooltip: {
                 trigger: "none"
             }
@@ -191,7 +191,7 @@ var mapTap = (function() {
                 addCountryToPath(country, index);
             }
         }
-        
+                
     }
     
     function addCountryToPath(country, index){
