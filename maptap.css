@@ -3,8 +3,35 @@ body {
     background-color: #8B864E;
     font-family: 'Poiret One', 'Arial';
     background-size: 400% 100%;
+    background-image: url('backgroundWithShadow.png');
+/*
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+*/
+    
+    -webkit-animation:animatedBackground 120s ease infinite;
+   -moz-animation:animatedBackground 120s ease infinite;
+    -ms-animation:animatedBackground 120s ease infinite;
+     -o-animation:animatedBackground 120s ease infinite;
+        animation:animatedBackground 120s ease infinite;
     
 }
+
+/*start main menu background*/
+
+@keyframes animatedBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+@-webkit-keyframes animatedBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+/*end main menu background*/
 
 #mapDiv {
     width: 100%;
@@ -29,7 +56,6 @@ body {
     color: white;
     margin-top: 40px;
     font-size: 48px;
-    
 }
 
 .menuButton > a{
@@ -107,3 +133,4 @@ td{
     display: inline;
     margin: 5px;
 }
+
