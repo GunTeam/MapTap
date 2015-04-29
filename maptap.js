@@ -233,16 +233,6 @@ var mapTap = (function() {
         }
         document.getElementById('cashInteger').innerHTML = '$' + currentCash;
 
-        
-        if (currentCash <= 0) {
-            document.getElementById('cashInteger').innerHTML ='$' + 0;
-            onLose();    
-        }
-        else if (currentCash < 50) {
-                $("#objectiveStar3").attr("src","starOutline.png");
-        }
-        
-
         //clear the last bordering highlights
         for (var pastBorderingCountryIndex in currentBordering) {
             var borderingCountry = currentBordering[pastBorderingCountryIndex];
@@ -268,22 +258,35 @@ var mapTap = (function() {
             }
         }
         
+        
         if (goalCountry === country) {
             onWin();
         } else{
-            drawRegionsMap()
             
-            if (secondaryGoalCountry === country) {
-                $("#objectiveStar2").attr("src","starFill.png");
+            if (currentCash <= 0) {
+                document.getElementById('cashInteger').innerHTML ='$' + 0;
+                onLose();    
             }
+            else{
+                
+                if (currentCash < 50) {
+                    $("#objectiveStar3").attr("src","starOutline.png");
+                }
 
-            var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
-//            $("#countryLabel").remove();
-            $(".countryTableBody").prepend(visitedString);
-            
-            
-            for(var i = 1; i <numCountries; i++){
-                $("#country"+i).css("color",pathColor);
+                drawRegionsMap()
+
+                if (secondaryGoalCountry === country) {
+                    $("#objectiveStar2").attr("src","starFill.png");
+                }
+
+                var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
+    //            $("#countryLabel").remove();
+                $(".countryTableBody").prepend(visitedString);
+
+
+                for(var i = 1; i <numCountries; i++){
+                    $("#country"+i).css("color",pathColor);
+                }
             }
         }
         
@@ -371,7 +374,7 @@ var mapTap = (function() {
         $(".avoidTab").empty();
         $(".countryTableBody").empty();
 
-        $(".objectivesTab").append("<h1>Objective</h1>");
+//        $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
 
         currentCash = startingCash;
@@ -409,13 +412,15 @@ var mapTap = (function() {
             +           "</div>"
             +   "</div>"     
             +   "</div>"
+            + "<div class='whiteCover'></div>"
             +"</div>");
         
 
         $(".countries_visited").prepend("<h1>Traveled to: </h1>");
         $(".cash").prepend("<h1 style='color:green'>$</h1>");
-        $(".objectivesTab").append("<h1>Objective</h1>");
+//        $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
+        
     };
 
 
@@ -482,6 +487,7 @@ var mapTap = (function() {
 $(document).ready(function() {
     $('.maptap').each(function() {
         mapTap.setup($(this));
+        $(this).css("position", "absolute");
     });
 
 });
