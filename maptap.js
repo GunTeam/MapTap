@@ -225,7 +225,7 @@ var mapTap = (function() {
             color = avoidColor;
             currentCash -= 50;
             dataCountries[index][1] = avoidColorIndex;
-
+            popupAvoid();
         }
         else{
             currentCash -= 5;
