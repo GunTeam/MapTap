@@ -12,12 +12,67 @@
     <title>MapTap</title>
     <script src="ammap/ammap.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/maps/js/worldHigh.js"></script>
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+    
+    <script>
+        function overlay() {
+            el = document.getElementById("overlay");
+            el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        }   
+       
+        $( document ).ready(function() {
+            el = document.getElementById("overlay");
+            el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        });
+        
+    </script>
+    
 </head>        
     
 <body>
+    
     <div class="maptap"></div>
     <script type="text/javascript" src="maptap.js"></script>
+    
+    <!-- Tutorial Modal -->
+    <div id="overlay">
+        <div id="modalOutline">
+            <div id="modalHead">
+                
+            </div>
+            
+            <div id="modalBody">
+                <div id="title">
+                    Welcome to MapTap!
+                </div>
+
+                <div id="modalPage1">
+                    <p>Content you want the user to see goes here.</p>
+                    Click here to [<a href='#' onclick='overlay()'>close</a>]
+                </div>
+
+                <div id="modalPage2">
+
+                </div>
+
+                <div id="modalPage3">
+
+                </div>
+
+                <div id="modalPage4">
+
+                </div>
+
+                <div id="modalPage5">
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <a href='#' onclick='overlay()'>Click here to show the overlay</a>
+    
 </body>
     
 </html>

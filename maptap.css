@@ -4,39 +4,9 @@
 }
 */
 body {
-/*    background-color: #8B5742;*/
     background-color: #8B864E;
     font-family: 'Poiret One', 'Arial';
-    background-size: 400% 100%;
-    background-image: url('backgroundWithShadow.png');
-/*
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-*/
-    
-    -webkit-animation:animatedBackground 120s ease infinite;
-   -moz-animation:animatedBackground 120s ease infinite;
-    -ms-animation:animatedBackground 120s ease infinite;
-     -o-animation:animatedBackground 120s ease infinite;
-        animation:animatedBackground 120s ease infinite;
-    
 }
-
-/*start main menu background*/
-
-@keyframes animatedBackground {
-    0% { background-position: 0 0; }
-    50% { background-position: 100% 0; }
-    100% { background-position: 0 0; }
-}
-
-@-webkit-keyframes animatedBackground {
-    0% { background-position: 0 0; }
-    50% { background-position: 100% 0; }
-    100% { background-position: 0 0; }
-}
-
-/*end main menu background*/
 
 #mapDiv {
     width: 100%;
@@ -48,28 +18,6 @@ body {
 
 .gradBar{
     visibility: hidden;
-}
-
-.menuButton{
-    margin: auto;
-    width: 200px;
-    height: 70px;
-    background-color: #607D8B;
-    border: solid 2px #546E7A;
-    border-radius: 5px;
-    text-align: center;
-    color: white;
-    margin-top: 40px;
-    font-size: 48px;
-}
-
-.menuButton > a{
-    color: inherit;
-}
-
-.title > h1 {
-    font-size: 100pt;
-    text-align: center;
 }
 
 .bgimage {
@@ -154,4 +102,26 @@ td{
 
 .avoidTab p{
     font-size: 20pt;
+}
+
+
+/*Tutorial modal*/
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+}
+
+#overlay div {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
 }

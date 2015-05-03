@@ -418,7 +418,6 @@ var mapTap = (function() {
 
         $(".countries_visited").prepend("<h1>Traveled to: </h1>");
         $(".cash").prepend("<h1 style='color:green'>$</h1>");
-//        $(".objectivesTab").append("<h1>Objective</h1>");
         $(".avoidTab").append("<h1>Avoid</h1>");
         
     };
