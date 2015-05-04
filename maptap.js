@@ -22,7 +22,7 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
-    var numberOfAvoidCountries = 4;
+    var numberOfAvoidCountries = 4;    
 
     var countriesVisited = [];
     
@@ -489,21 +489,56 @@ var mapTap = (function() {
     return exports;
 }());
 
-function onHover(){
-    console.log(this);   
-    console.log($(this).index());
-}
+    function onHover(){
+        console.log(this);   
+        console.log($(this).index());
+    }
 
-function identifyCountry(){
-    $("path").each(function(){
-        var color = $(this).css("fill"); 
-        if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color")){
-            console.log();
-            $(this).hover(onHover);
-        }
-    })
-}
+    function identifyCountry(){
+        $("path").each(function(){
+            var color = $(this).css("fill"); 
+            if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color")){
+                console.log();
+                $(this).hover(onHover);
+            }
+        })
+    }
     
+    var modalPages = ['modalPage1','modalPage2','modalPage3','modalPage4','backModalButton','nextModalButton'];
+    var page = 0;
+
+
+    function overlay() {
+        el = document.getElementById("overlay");
+        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        console.log(modalPages);
+        for (var i = 0; i < modalPages.length; i++){
+            document.getElementById(modalPages[i]).style.visibility = 'hidden';
+            console.log(modalPages[i]);
+        }
+    }
+        
+    function prevModal() {
+        if (page == 1){
+            document.getElementById("backModalButton").style.visibility = 'hidden';    
+        }
+        document.getElementById(modalPages[page]).style.visibility = 'hidden';
+        page--;
+        document.getElementById(modalPages[page]).style.visibility = 'visible';
+
+    }
+        
+    function nextModal() {
+        if (page == 0){
+            document.getElementById("backModalButton").style.visibility = 'visible';    
+        }
+        document.getElementById(modalPages[page]).style.visibility = 'hidden';
+        page++;
+        document.getElementById(modalPages[page]).style.visibility = 'visible';
+        if (page == 4){
+            overlay();
+        } 
+    }
 
 $(document).ready(function() {
     $('.maptap').each(function() {
@@ -511,5 +546,8 @@ $(document).ready(function() {
         $(this).css("position", "absolute");
     });
     
+    el = document.getElementById("overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
 });
 
