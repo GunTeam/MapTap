@@ -249,7 +249,7 @@ var mapTap = (function() {
             popupReward(cashReward);
             
             currentCash += cashReward;
-            
+            J
 
             resetGame();
             dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
@@ -300,11 +300,7 @@ var mapTap = (function() {
         }
         
         if (currentCash <= 0) {
-            //this is where we put the end screen
-            document.getElementById('cashInteger').innerHTML ='$' + 0;
-            if (confirm("You ran out of goods! Try again?") == true) {
-                newGame();
-            }        
+            window.location.href = "endScreen.html";     
         } else{
 
             completelyDraw()
