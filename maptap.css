@@ -4,7 +4,7 @@
 }
 */
 body {
-    background-color: #8B864E;
+    background-color: white;
     font-family: 'Poiret One', 'Arial';
 }
 
@@ -85,15 +85,8 @@ td{
     left: 0;
 }
 
-.objectives > img {
-    display: inline;
-    height: 35px;
-    position: relative;
-    top: -3px;
-}
-.objectives > p {
-    display: inline;
-    margin: 5px;
+.destinationTab{
+    font-size: 20pt;
 }
 
 .objectivesTab{
@@ -103,7 +96,6 @@ td{
 .avoidTab p{
     font-size: 20pt;
 }
-
 
 /*Tutorial modal*/
 #overlay p{
@@ -191,4 +183,15 @@ td{
     font-size: 100px;
     color: red;
     background-color: none;
+}
+
+#levelHeader{
+    border-bottom: 1px solid gray;
+}
+
+.levelStar {
+    height: 22px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    
 }

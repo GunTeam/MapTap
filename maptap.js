@@ -22,10 +22,14 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
-    var numberOfAvoidCountries = 4;    
+   
+    var numberOfAvoidCountries = 2;
+    var currentLevel = 0;
+    var avoidPenalty = 50; 
 
     var countriesVisited = [];
-    
+    var countriesToAvoid = [];
+
     var numCountries = 0;
 
     var dataCountries = [
@@ -160,21 +164,6 @@ var mapTap = (function() {
     });
     google.setOnLoadCallback(drawRegionsMap);
     
-    //randomized avoid country list
-    var countriesToAvoid = [];
-    
-    var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-    for (var i = 0;i < numberOfAvoidCountries; i++){
-        while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
-            avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        countriesToAvoid.push(dataCountries[avoidIndex][0]);
-    }
-    
-
-    console.log(countriesToAvoid);
-
-    
 
     //Make a map so that when given a country, we know what entry of dataCountries it corresponds to
     for (var dataCountryInd = 1; dataCountryInd < dataCountries.length; dataCountryInd++) {
@@ -222,7 +211,7 @@ var mapTap = (function() {
         currentCountry = country;
         if ($.inArray(country, countriesToAvoid) != -1) {
             color = avoidColor;
-            currentCash -= 50;
+            currentCash -= avoidPenalty;
             dataCountries[index][1] = avoidColorIndex;
             popupAvoid();
         }
@@ -267,19 +256,10 @@ var mapTap = (function() {
                 onLose();    
             }
             else{
-                
-                if (currentCash < 50) {
-                    $("#objectiveStar3").attr("src","starOutline.png");
-                }
 
                 drawRegionsMap()
 
-                if (secondaryGoalCountry === country) {
-                    $("#objectiveStar2").attr("src","starFill.png");
-                }
-
                 var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
-    //            $("#countryLabel").remove();
                 $(".countryTableBody").prepend(visitedString);
 
 
@@ -288,13 +268,11 @@ var mapTap = (function() {
                 }
             }
         }
-        
     }
     
     function drawCashLabel(lostCash){
         var canvas = document.getElementById("traderCanvas");
         var ctx = canvas.getContext("2d");   
-        
     }
 
     function onLose() {
@@ -304,10 +282,18 @@ var mapTap = (function() {
     }
 
     function onWin() {
-        $("#objectiveStar1").attr("src","starFill.png");
-        if (confirm("You won! Try again?") == true) {
-            newGame();
+        currentLevel++;
+        if (currentLevel%4 == 0){
+            $("#levelStar1").attr("src","starOutline.png");
+            $("#levelStar2").attr("src","starOutline.png");
+            $("#levelStar3").attr("src","starOutline.png");
+        } else {
+            $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
         }
+        
+        document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
+        getNewObjective();
+
     }
 
     function resetGame() {
@@ -368,16 +354,7 @@ var mapTap = (function() {
             ['Zambia', defaultColorIndex],
             ['Zimbabwe', defaultColorIndex]
         ];
-
-        $(".objectivesTab").empty();
-        $(".avoidTab").empty();
-        $(".countryTableBody").empty();
-
-//        $(".objectivesTab").append("<h1>Objective</h1>");
-        $(".avoidTab").append("<h1>Avoid</h1>");
-
-        currentCash = startingCash;
-        document.getElementById('cashInteger').innerHTML = currentCash;
+        
         numCountries = 0;
     }
 
@@ -407,6 +384,8 @@ var mapTap = (function() {
             +   "<div class = 'column column2'>"
             +           "<div class = 'objectivesTab'>"
             +           "</div>"
+            +           "<div class = 'destinationTab'>"
+            +           "</div>"
             +           "<div class = 'avoidTab'>"
             +           "</div>"
             +   "</div>"     
@@ -430,11 +409,54 @@ var mapTap = (function() {
         exports.model = model;
         newGame();
     };
+    
+    function createLevelHeader() {
+        $(".objectivesTab").empty();
+        var levelHeader = "<div id='levelHeader'><h2 id='levelLabel'>Level "+(Math.floor(currentLevel/4)+1)+"</h2><img src='starOutline.png' id='levelStar1' class='levelStar'><img src='starOutline.png' id='levelStar2' class='levelStar'><img src='starOutline.png' id='levelStar3' class='levelStar'></div>";
+        $(".objectivesTab").append(levelHeader);
+    }
+    
+    function getNewObjective(){
+        
+        var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        while (dataCountries[endCountryIndex][0] === currentCountry || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
+            endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        var endCountry = dataCountries[endCountryIndex][0];
+        goalCountry = endCountry;
+        
+        $(".destinationTab").empty();
+        $(".destinationTab").append("<h1>Destination</h1>");
+        var objectiveString = "<div class='objectives'><p><span style='color:" + goalColor + "'>" + endCountry + "</span></p></div>";
+        $(".destinationTab").append(objectiveString);
+        
+        $(".avoidTab").empty();
+        $(".avoidTab").append("<h1>Avoid</h1>");
+        var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        countriesToAvoid = [];
+        
+        for (var i = 0;i < numberOfAvoidCountries; i++){
+            while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
+                avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+            }
+            countriesToAvoid.push(dataCountries[avoidIndex][0]);
+        }
+        
+        for (var countryToAvoidIndex in countriesToAvoid) {
+            var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
+            var avoidString = "<p><span style='color:" + avoidColor + "'>" + countryToAvoid + "</span></p>";
+            $(".avoidTab").append(avoidString);
+        }
+
+    }
 
     var newGame = function() {
         
         resetGame();
-
+        
+        currentCash = startingCash;
+        document.getElementById('cashInteger').innerHTML = currentCash;
+        
         var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         while ((countriesToAvoid.indexOf(dataCountries[newCountryIndex][0])>= 0)) {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
@@ -445,36 +467,10 @@ var mapTap = (function() {
         countriesVisited = [currentCountry];
 
         addCountryToPath(currentCountry, newCountryIndex);
-
-        var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (endCountryIndex === newCountryIndex || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
-            endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        var endCountry = dataCountries[endCountryIndex][0];
-        goalCountry = endCountry;
         
-        var secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex || (countriesToAvoid.indexOf(dataCountries[secondaryCountryIndex][0])>= 0)) {
-            secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        var secondaryCountry = dataCountries[secondaryCountryIndex][0];
-        secondaryGoalCountry = secondaryCountry;
-
-//        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
-        var objectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar1'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></div>";
-        $(".objectivesTab").append(objectiveString);
-        var secondaryObjectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar2'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div>";
-        $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='objectives'><img src='starFill.png' id='objectiveStar3'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div>";
-        $(".objectivesTab").append(moneyObjective);
+        getNewObjective();
+        createLevelHeader();
         
-        
-        for (var countryToAvoidIndex in countriesToAvoid) {
-            var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
-            var avoidString = "<p><span style='color:" + avoidColor + "'>" + countryToAvoid + "</span></p>";
-            $(".avoidTab").append(avoidString);
-        }
-
     }
 
     exports.setup = setup;
