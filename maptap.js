@@ -482,7 +482,8 @@ var mapTap = (function() {
     return exports;
 }());
 
-    var modalPages = ['modalPage1','modalPage2','modalPage3','modalPage4'];
+    var modalPages = ['modalPage1','modalPage2','modalPage3','modalPage4','backModalButton','nextModalButton'];
+    var page = 0;
 
 
     function overlay() {
@@ -491,15 +492,30 @@ var mapTap = (function() {
         console.log(modalPages);
         for (var i = 0; i < modalPages.length; i++){
             document.getElementById(modalPages[i]).style.visibility = 'hidden';
+            console.log(modalPages[i]);
         }
     }
         
     function prevModal() {
-        
+        if (page == 1){
+            document.getElementById("backModalButton").style.visibility = 'hidden';    
+        }
+        document.getElementById(modalPages[page]).style.visibility = 'hidden';
+        page--;
+        document.getElementById(modalPages[page]).style.visibility = 'visible';
+
     }
         
     function nextModal() {
-            
+        if (page == 0){
+            document.getElementById("backModalButton").style.visibility = 'visible';    
+        }
+        document.getElementById(modalPages[page]).style.visibility = 'hidden';
+        page++;
+        document.getElementById(modalPages[page]).style.visibility = 'visible';
+        if (page == 4){
+            overlay();
+        } 
     }
 
 $(document).ready(function() {
