@@ -226,7 +226,7 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         
-        numCountries += 1;
+
         
         var color = 'rgb(230, 14, 230)';
 
@@ -234,6 +234,8 @@ var mapTap = (function() {
         currentCountryIndex = index;
         
         if (goalCountry === country) {
+            $(".countryTableBody").empty();
+//            $(".countries_visited").prepend("<h1>Traveled to: </h1>");
             currentLevel++;
             if (currentLevel%4 == 0){
                 $("#levelStar1").attr("src","starOutline.png");
@@ -253,6 +255,8 @@ var mapTap = (function() {
             document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
             getNewObjective();
         } 
+        
+        numCountries += 1;
         
         if ($.inArray(country, countriesToAvoid) != -1) {
             color = avoidColor;
@@ -291,32 +295,13 @@ var mapTap = (function() {
             }
         }
         
-        
-//        if (goalCountry === country) {
-//            currentLevel++;
-//            if (currentLevel%4 == 0){
-//                $("#levelStar1").attr("src","starOutline.png");
-//                $("#levelStar2").attr("src","starOutline.png");
-//                $("#levelStar3").attr("src","starOutline.png");
-//            } else {
-//                $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
-//            }
-//
-//            resetGame();
-//            dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
-//            console.log(dataCountries);
-//
-//            completelyDraw();
-//
-//
-//            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
-//            getNewObjective();
-//        }
         if (currentCash <= 0) {
+            //this is where we put the end screen
             document.getElementById('cashInteger').innerHTML ='$' + 0;
-            onLose();    
-        }
-        else{
+            if (confirm("You ran out of goods! Try again?") == true) {
+                newGame();
+            }        
+        } else{
 
             completelyDraw()
 
@@ -333,13 +318,6 @@ var mapTap = (function() {
     function drawCashLabel(lostCash){
         var canvas = document.getElementById("traderCanvas");
         var ctx = canvas.getContext("2d");   
-                
-    }
-
-    function onLose() {
-        if (confirm("You ran out of goods! Try again?") == true) {
-            newGame();
-        }
     }
 
     function resetGame() {
@@ -501,7 +479,6 @@ var mapTap = (function() {
     }
 
     var newGame = function() {        
-//        $(".countries_visited").empty();
         
         resetGame();
         
