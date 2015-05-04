@@ -106,6 +106,11 @@ td{
 
 
 /*Tutorial modal*/
+#overlay p{
+    margin: auto;
+    max-width: 80%;
+}
+
 #overlay {
      visibility: hidden;
      position: absolute;
@@ -119,6 +124,7 @@ td{
 
 #overlay #modalOutline {
      width:500px;
+    height: 400px;
      margin: 100px auto;
      background-color: #fff;
      border:1px solid #000;
@@ -134,11 +140,50 @@ td{
 }
 
 #overlay #modalBody{
-    
+    position: relative;
 }
 
 .modalPage img{
     border: 1px solid #000000;
+}
+
+#modalBody{
+    height: inherit;
+    width: inherit;
+}
+
+/*Modal footer*/
+.modalButton{
+    position: absolute;
+    height: 40px;
+    width: 80px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    align-content: center;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20pt;
+    bottom: 40px;
+}
+#backModalButton{
+    left: 5px;
+}
+#nextModalButton{
+    right: 5px;
+}
+#skip{
+    position:absolute;
+    bottom:50px;
+    margin-left:auto;
+    margin-right:auto;
+    color:red;
+}
+
+
+.modalPage{
+    visibility: hidden;
+    position: absolute;
+    
 }
 
 .cashPopup {

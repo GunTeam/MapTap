@@ -47,15 +47,16 @@
                 <div id="modalPage1" class="modalPage">
                     <p>You are a trader selling exotic wares all around Africa. Your location is marked by pink on the map.</p>
                     <img src="TutorialArt/pinkHighlight.png" align="middle">
-                    Click here to [<a href='#' onclick='overlay()'>close</a>]
                 </div>
 
-                <div id="modalPage2" class="modalPage">
+                <div id="modalPage2" class="modalPage" style="visibility:hidden;">
                     <p>Get to your target countries (displayed on the right)[highlight rather than text] by the shortest path possible.</p>
+                    <img src="TutorialArt/shortPath.png">
                 </div>
 
-                <div id="modalPage3" class="modalPage">
-                    <p>Don’t travel to ‘avoid’ countries, as doing so induces a huge cash penalty.</p>
+                <div id="modalPage3" class="modalPage" style="visibility:hidden;">
+                    <p>Don't travel to 'avoid' countries, as doing so induces a huge cash penalty.</p>
+                    <img src="TutorialArt/longPath.png">
                 </div>
 
                 <div id="modalPage4" class="modalPage">
@@ -66,6 +67,10 @@
 
                 </div>
                 
+                <div class="modalButton" id="backModalButton"><a href="#" onclick="prevModal()">Back</a></div>
+                <div class="modalButton" id="nextModalButton"><a href="#" onclick="nextModal()">Next</a></div>
+                  
+                <a href='#' onclick='overlay()' style="position:absolute;bottom:40;margin-left:auto;margin-right:auto;color:red">[Skip]</a>
             </div>
         </div>
     </div>
