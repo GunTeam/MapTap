@@ -4,6 +4,7 @@ var mapTap = (function() {
     var continents;
     var areas;
 
+    var currentCountryIndex;
     var currentCountry;
     var goalCountry;
     var secondaryGoalCountry;
@@ -230,6 +231,29 @@ var mapTap = (function() {
         var color = 'rgb(230, 14, 230)';
 
         currentCountry = country;
+        currentCountryIndex = index;
+        
+        if (goalCountry === country) {
+            currentLevel++;
+            if (currentLevel%4 == 0){
+                $("#levelStar1").attr("src","starOutline.png");
+                $("#levelStar2").attr("src","starOutline.png");
+                $("#levelStar3").attr("src","starOutline.png");
+            } else {
+                $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
+            }
+
+            resetGame();
+            dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
+            console.log(dataCountries);
+
+            completelyDraw();
+
+
+            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
+            getNewObjective();
+        } 
+        
         if ($.inArray(country, countriesToAvoid) != -1) {
             color = avoidColor;
             currentCash -= avoidPenalty;
@@ -268,25 +292,40 @@ var mapTap = (function() {
         }
         
         
-        if (goalCountry === country) {
-            onWin();
-        } else{
-            
-            if (currentCash <= 0) {
-                document.getElementById('cashInteger').innerHTML ='$' + 0;
-                onLose();    
-            }
-            else{
+//        if (goalCountry === country) {
+//            currentLevel++;
+//            if (currentLevel%4 == 0){
+//                $("#levelStar1").attr("src","starOutline.png");
+//                $("#levelStar2").attr("src","starOutline.png");
+//                $("#levelStar3").attr("src","starOutline.png");
+//            } else {
+//                $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
+//            }
+//
+//            resetGame();
+//            dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
+//            console.log(dataCountries);
+//
+//            completelyDraw();
+//
+//
+//            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
+//            getNewObjective();
+//        }
+        if (currentCash <= 0) {
+            document.getElementById('cashInteger').innerHTML ='$' + 0;
+            onLose();    
+        }
+        else{
 
-                completelyDraw()
+            completelyDraw()
 
-                var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
-                $(".countryTableBody").prepend(visitedString);
+            var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
+            $(".countryTableBody").prepend(visitedString);
 
 
-                for(var i = 1; i <numCountries; i++){
-                    $("#country"+i).css("color",pathColor);
-                }
+            for(var i = 1; i <numCountries; i++){
+                $("#country"+i).css("color",pathColor);
             }
         }
     }
@@ -301,21 +340,6 @@ var mapTap = (function() {
         if (confirm("You ran out of goods! Try again?") == true) {
             newGame();
         }
-    }
-
-    function onWin() {
-        currentLevel++;
-        if (currentLevel%4 == 0){
-            $("#levelStar1").attr("src","starOutline.png");
-            $("#levelStar2").attr("src","starOutline.png");
-            $("#levelStar3").attr("src","starOutline.png");
-        } else {
-            $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
-        }
-        
-        document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
-        getNewObjective();
-
     }
 
     function resetGame() {
@@ -414,11 +438,7 @@ var mapTap = (function() {
             +   "</div>"
             + "<div class='whiteCover'></div>"
             +"</div>");
-        
 
-        $(".countries_visited").prepend("<h1>Traveled to: </h1>");
-        $(".cash").prepend("<h1 style='color:green'>$</h1>");
-        $(".avoidTab").append("<h1>Avoid</h1>");
         
     };
 
@@ -436,7 +456,8 @@ var mapTap = (function() {
         $("body").append($("<div id='dummyBorderingColor' style='display:none;color:#ccdddd'></div>"));
         $("body").append($("<div id='dummyTraderLocationColor' style='display:none;color:#E60EE6'></div>"));
         
-        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));        newGame();
+        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));
+        newGame();
     };
     
     function createLevelHeader() {
@@ -479,9 +500,14 @@ var mapTap = (function() {
 
     }
 
-    var newGame = function() {
+    var newGame = function() {        
+//        $(".countries_visited").empty();
         
         resetGame();
+        
+        $(".countries_visited").prepend("<h1>Traveled to: </h1>");
+        $(".cash").prepend("<h1 style='color:green'>$</h1>");
+        $(".avoidTab").append("<h1>Avoid</h1>");
         
         currentCash = startingCash;
         document.getElementById('cashInteger').innerHTML = currentCash;
@@ -491,6 +517,7 @@ var mapTap = (function() {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         
+        currentCountryIndex = newCountryIndex;
         currentCountry = dataCountries[newCountryIndex][0];
         dataCountries[newCountryIndex][1] = traderLocationColorIndex;
         countriesVisited = [currentCountry];
@@ -565,7 +592,7 @@ $(document).ready(function() {
     });
     
     el = document.getElementById("overlay");
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    el.style.visibility = "visible";
 
 });
 
