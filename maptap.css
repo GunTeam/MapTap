@@ -176,8 +176,13 @@ td{
     top: 50%;
     left: 45%;
     font-size: 100px;
-    color: red;
     background-color: none;
+}
+#cashPenaltyText{
+    color:red;
+}
+#cashRewardText{
+    color:green;
 }
 
 #levelHeader{
