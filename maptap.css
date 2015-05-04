@@ -124,8 +124,8 @@ td{
 
 #overlay #modalOutline {
      width:500px;
-    height: 400px;
-     margin: 100px auto;
+     height:400px;
+     margin:100px auto;
      background-color: #fff;
      border:1px solid #000;
      text-align:center;
@@ -139,17 +139,22 @@ td{
     background-color: #d8d8d8;
 }
 
-#overlay #modalBody{
+/*Modal body*/
+#modalBody{
     position: relative;
+    height: inherit;
+    width: inherit;
+}
+
+.modalPage{
+/*    visibility: hidden;*/
+    font-size: 14pt;
+    position: absolute;
 }
 
 .modalPage img{
     border: 1px solid #000000;
-}
-
-#modalBody{
-    height: inherit;
-    width: inherit;
+    border-radius: 1px;
 }
 
 /*Modal footer*/
@@ -179,12 +184,6 @@ td{
     color:red;
 }
 
-
-.modalPage{
-    visibility: hidden;
-    position: absolute;
-    
-}
 
 .cashPopup {
     position:fixed;

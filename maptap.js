@@ -22,7 +22,7 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
-    var numberOfAvoidCountries = 4;
+    var numberOfAvoidCountries = 4;    
 
     var countriesVisited = [];
     
@@ -181,8 +181,7 @@ var mapTap = (function() {
         var thisCountry = dataCountries[dataCountryInd][0];
         countryToIndexMap[thisCountry] = dataCountryInd;
     }
-
-
+    
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable(dataCountries);
 
@@ -483,11 +482,34 @@ var mapTap = (function() {
     return exports;
 }());
 
+    var modalPages = ['modalPage1','modalPage2','modalPage3','modalPage4'];
+
+
+    function overlay() {
+        el = document.getElementById("overlay");
+        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        console.log(modalPages);
+        for (var i = 0; i < modalPages.length; i++){
+            document.getElementById(modalPages[i]).style.visibility = 'hidden';
+        }
+    }
+        
+    function prevModal() {
+        
+    }
+        
+    function nextModal() {
+            
+    }
+
 $(document).ready(function() {
     $('.maptap').each(function() {
         mapTap.setup($(this));
         $(this).css("position", "absolute");
     });
+    
+    el = document.getElementById("overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
 });
 
