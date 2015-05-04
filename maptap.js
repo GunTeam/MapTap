@@ -26,7 +26,7 @@ var mapTap = (function() {
    
     var numberOfAvoidCountries = 2;
     var currentLevel = 0;
-    var avoidPenalty = 50; 
+    var avoidPenalty = 30; 
 
     var countriesVisited = [];
     var countriesToAvoid = [];
@@ -226,8 +226,6 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         
-
-        
         var color = 'rgb(230, 14, 230)';
 
         currentCountry = country;
@@ -235,7 +233,6 @@ var mapTap = (function() {
         
         if (goalCountry === country) {
             $(".countryTableBody").empty();
-//            $(".countries_visited").prepend("<h1>Traveled to: </h1>");
             currentLevel++;
             if (currentLevel%4 == 0){
                 $("#levelStar1").attr("src","starOutline.png");
@@ -247,7 +244,6 @@ var mapTap = (function() {
 
             resetGame();
             dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
-            console.log(dataCountries);
 
             completelyDraw();
 
@@ -262,9 +258,8 @@ var mapTap = (function() {
             color = avoidColor;
             currentCash -= avoidPenalty;
             dataCountries[index][1] = avoidColorIndex;
-            popupAvoid();
-        }
-        else{
+            popupAvoid(avoidPenalty);
+        } else {
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }

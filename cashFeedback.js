@@ -1,5 +1,6 @@
 
-function popupAvoid(){    
+function popupAvoid(penalty){
+    document.getElementById('cashPopupText').innerHTML = "-"+penalty;
     $(".cashPopup").show();
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
@@ -11,7 +12,7 @@ function popupAvoid(){
 }
 
 $(document).ready(function(){
-    $("body").append("<div class='cashPopup'><span>-50</span></div>");
+    $("body").append("<div class='cashPopup'><span id='cashPopupText'>-50</span></div>");
     $(".cashPopup").hide();
     
     console.log($("table").html());
