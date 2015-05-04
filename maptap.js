@@ -162,8 +162,18 @@ var mapTap = (function() {
     google.load("visualization", "1.0", {
         packages: ["geochart"]
     });
-    google.setOnLoadCallback(drawRegionsMap);
+    google.setOnLoadCallback(completelyDraw);
     
+    //randomized avoid country list
+    var countriesToAvoid = [];
+    
+    var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+    for (var i = 0;i < numberOfAvoidCountries; i++){
+        while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
+            avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        countriesToAvoid.push(dataCountries[avoidIndex][0]);
+    }
 
     //Make a map so that when given a country, we know what entry of dataCountries it corresponds to
     for (var dataCountryInd = 1; dataCountryInd < dataCountries.length; dataCountryInd++) {
@@ -171,6 +181,18 @@ var mapTap = (function() {
         countryToIndexMap[thisCountry] = dataCountryInd;
     }
     
+    function completelyDraw() {
+        drawRegionsMap();
+                
+        // Assign the command to execute and the number of seconds to wait
+        var strCmd = "identifyCountry()";
+        var waitseconds = 1;
+
+        // Calculate time out period then execute the command
+        var timeOutPeriod = waitseconds * 1000;
+        var hideTimer = setTimeout(strCmd, timeOutPeriod);
+    }
+
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable(dataCountries);
 
@@ -199,7 +221,6 @@ var mapTap = (function() {
                 addCountryToPath(country, index);
             }
         }
-                
     }
     
     function addCountryToPath(country, index){
@@ -257,7 +278,7 @@ var mapTap = (function() {
             }
             else{
 
-                drawRegionsMap()
+                completelyDraw()
 
                 var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
                 $(".countryTableBody").prepend(visitedString);
@@ -273,6 +294,7 @@ var mapTap = (function() {
     function drawCashLabel(lostCash){
         var canvas = document.getElementById("traderCanvas");
         var ctx = canvas.getContext("2d");   
+                
     }
 
     function onLose() {
@@ -407,7 +429,14 @@ var mapTap = (function() {
         var view = View(div, model);
         exports.view = view;
         exports.model = model;
-        newGame();
+        
+        $("body").append($("<div id='dummyPathColor' style='display:none;color:#5522cc'></div>"));
+        $("body").append($("<div id='dummyAvoidColor' style='display:none;color:#cc0000'></div>"));
+        $("body").append($("<div id='dummyDefaultColor' style='display:none;color:#aaaaaa'></div>"));
+        $("body").append($("<div id='dummyBorderingColor' style='display:none;color:#ccdddd'></div>"));
+        $("body").append($("<div id='dummyTraderLocationColor' style='display:none;color:#E60EE6'></div>"));
+        
+        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));        newGame();
     };
     
     function createLevelHeader() {
@@ -478,6 +507,21 @@ var mapTap = (function() {
     return exports;
 }());
 
+    function onHover(){
+        console.log(this);   
+        console.log($(this).index());
+    }
+
+    function identifyCountry(){
+        $("path").each(function(){
+            var color = $(this).css("fill"); 
+            if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color")){
+                console.log();
+                $(this).hover(onHover);
+            }
+        })
+    }
+    
     var modalPages = ['modalPage1','modalPage2','modalPage3','modalPage4','backModalButton','nextModalButton'];
     var page = 0;
 

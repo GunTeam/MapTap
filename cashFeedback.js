@@ -14,7 +14,7 @@ $(document).ready(function(){
     $("body").append("<div class='cashPopup'><span>-50</span></div>");
     $(".cashPopup").hide();
     
-    $(".container").mouseenter(function(){
-        console.log(this);    
-    });
+    console.log($("table").html());
+    
+    $("table").mouseenter(onHover);
 });
