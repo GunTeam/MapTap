@@ -219,7 +219,7 @@ var mapTap = (function() {
 
             completelyDraw()
             
-            var countryFirstWord = country.split(/[ ,]+/)[0];
+            var countryFirstWord = country.split(/[ ,-]+/)[0];
             var visitedString = "<tr><td>"+numCountries+".</td><td class = 'visited"+countryFirstWord+"' id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
             $(".countryTableBody").prepend(visitedString);
 
@@ -437,9 +437,13 @@ var mapTap = (function() {
         var countryIndex = $(this).index();
         var country = googleIndexing[countryIndex];
         mouseEnterCountry(country); //dataCountries[countryIndex][0]
-        $(".countryLabel").css($(this).position());
         
-        var countryFirstWord = country.split(/[ ,]+/)[0];
+        var countryLabelPosition = $(this).position();
+        countryLabelPosition.top += 10;
+        countryLabelPosition.left += 20;
+        $(".countryLabel").css(countryLabelPosition);
+        
+        var countryFirstWord = country.split(/[ ,-]+/)[0];
         $(".visited"+countryFirstWord).addClass("highlightedCountry");
     }
 
