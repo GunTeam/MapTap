@@ -141,3 +141,5 @@
         566: "Niger",
         527: "Republic of the Congo"
     };
+
+    var islands = ["Ceuta", "Cape Verde", "Canary Islands", "Comoros"];

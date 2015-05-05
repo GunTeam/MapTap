@@ -38,8 +38,6 @@ $(document).ready(function(){
     $("body").append("<div class='countryLabel'><span class='countryLabelText'></span></div>");
 
     $(".cashPopup").hide();
-    
-    console.log($("table").html());
-    
+        
     $("table").mouseenter(onHover);
 });

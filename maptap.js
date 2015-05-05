@@ -168,7 +168,7 @@ var mapTap = (function() {
             completelyDraw();
 
 
-            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
+            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);
             getNewObjective();
         } 
         
@@ -359,10 +359,13 @@ var mapTap = (function() {
     function getNewObjective(){
         
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (dataCountries[endCountryIndex][0] === currentCountry || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
-            endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
         var endCountry = dataCountries[endCountryIndex][0];
+
+        while (endCountry === currentCountry || (countriesToAvoid.indexOf(endCountry)>= 0) || (islands.indexOf(endCountry)>= 0) ) {
+            endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+            endCountry = dataCountries[endCountryIndex][0];
+        }
+        
         goalCountry = endCountry;
         
         $(".destinationTab").empty();
@@ -376,10 +379,12 @@ var mapTap = (function() {
         countriesToAvoid = [];
         
         for (var i = 0;i < numberOfAvoidCountries; i++){
-            while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
+            var avoidCountry = dataCountries[avoidIndex][0];
+            while (countriesToAvoid.indexOf(avoidCountry) >= 0 || islands.indexOf(avoidCountry)>=0){
                 avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+                avoidCountry = dataCountries[avoidIndex][0];
             }
-            countriesToAvoid.push(dataCountries[avoidIndex][0]);
+            countriesToAvoid.push(avoidCountry);
         }
         
         for (var countryToAvoidIndex in countriesToAvoid) {
@@ -402,12 +407,14 @@ var mapTap = (function() {
         document.getElementById('cashInteger').innerHTML = currentCash;
         
         var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while ((countriesToAvoid.indexOf(dataCountries[newCountryIndex][0])>= 0)) {
+        currentCountry = dataCountries[newCountryIndex][0];
+        
+        while ((countriesToAvoid.indexOf(currentCountry)>= 0) || (islands.indexOf(currentCountry)>= 0)) {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+            currentCountry = dataCountries[newCountryIndex][0];
         }
         
         currentCountryIndex = newCountryIndex;
-        currentCountry = dataCountries[newCountryIndex][0];
         dataCountries[newCountryIndex][1] = traderLocationColorIndex;
         countriesVisited = [currentCountry];
 
@@ -461,10 +468,8 @@ var mapTap = (function() {
     function overlay() {
         el = document.getElementById("overlay");
         el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-        console.log(modalPages);
         for (var i = 0; i < modalPages.length; i++){
             document.getElementById(modalPages[i]).style.visibility = 'hidden';
-            console.log(modalPages[i]);
         }
     }
         
