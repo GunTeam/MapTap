@@ -1,6 +1,7 @@
 body {
     background-color: white;
-    font-family: 'Poiret One', 'Arial';
+    font-family: 'Arial'; 
+/*'Poiret One', '*/
 }
 
 #mapDiv {
@@ -24,7 +25,7 @@ body {
     position: absolute;
     margin: 50px;
     padding: 20px;
-    background-color: rgba(171, 137, 240, 0.5);
+    background-color: rgba(50, 50, 50, 0.4);
     width: 20%
 }
 
