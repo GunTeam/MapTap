@@ -494,6 +494,8 @@ var mapTap = (function() {
         if (page == 4){
             overlay();
         } 
+        
+        localStorage.setItem("TutorialPlayed", true);
     }
 
 
@@ -506,6 +508,9 @@ $(document).ready(function() {
     
     el = document.getElementById("overlay");
     el.style.visibility = "visible";
-
+    
+    if( localStorage.getItem("TutorialPlayed") ){
+        $("#overlay").hide();
+    }
 });
 
