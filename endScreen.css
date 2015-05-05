@@ -21,10 +21,12 @@ body {
     text-align: center;
     color: white;
     font-size: 20px;
+    margin-left: -8%;
+    margin-top: 4%;
 }
 
 .endButton:hover{
-    background-color: #65AFCC;
+    background-color: darkgray;
 }
 
 #giveFeedback{
@@ -39,7 +41,30 @@ body {
 
 body{
     text-align: center;
+    background-image: url('backgroundWithShadow.png');
+
+    font-family: 'Poiret One', 'Arial';
+
+    -webkit-animation:animatedBackground 120s ease infinite;
+    -moz-animation:animatedBackground 120s ease infinite;
+    -ms-animation:animatedBackground 120s ease infinite;
+     -o-animation:animatedBackground 120s ease infinite;
+        animation:animatedBackground 120s ease infinite;
 }
+
+
+@keyframes animatedBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+@-webkit-keyframes animatedBackground {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
 
 #yourScore{
     margin: 0 auto;
