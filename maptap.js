@@ -4,6 +4,7 @@ var mapTap = (function() {
     var continents;
     var areas;
 
+    var currentCountryIndex;
     var currentCountry;
     var goalCountry;
     var secondaryGoalCountry;
@@ -22,10 +23,15 @@ var mapTap = (function() {
     var pathColorIndex = 0;
     var traderLocationColorIndex = 3;
     var borderingColorIndex = 2;
-    var numberOfAvoidCountries = 4;    
+   
+    var numberOfAvoidCountries = 2;
+    var currentLevel = 0;
+    var avoidPenalty = 30;
+    var cashReward = 25;
 
     var countriesVisited = [];
-    
+    var countriesToAvoid = [];
+
     var numCountries = 0;
 
     var dataCountries = [
@@ -221,18 +227,47 @@ var mapTap = (function() {
     
     function addCountryToPath(country, index){
         
-        numCountries += 1;
-        
         var color = 'rgb(230, 14, 230)';
 
         currentCountry = country;
+        currentCountryIndex = index;
+        
+        if (goalCountry === country) {
+            $(".countryTableBody").empty();
+            currentLevel++;
+            
+            if (currentLevel%4 == 0){
+                avoidPenalty += 10;
+                cashReward += 5;
+                $("#levelStar1").attr("src","starOutline.png");
+                $("#levelStar2").attr("src","starOutline.png");
+                $("#levelStar3").attr("src","starOutline.png");
+            } else {
+                $("#levelStar"+(currentLevel%4)).attr("src","starFill.png");
+            }
+            
+            popupReward(cashReward);
+            
+            currentCash += cashReward;
+
+            resetGame();
+            dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
+
+            completelyDraw();
+
+
+            document.getElementById('levelLabel').innerHTML = "Level "+ Math.floor(currentLevel/4 + 1);;
+            getNewObjective();
+        } 
+        
+        numCountries += 1;
+        
         if ($.inArray(country, countriesToAvoid) != -1) {
             color = avoidColor;
-            currentCash -= 50;
+            currentCash -= avoidPenalty;
             dataCountries[index][1] = avoidColorIndex;
-            popupAvoid();
-        }
-        else{
+            popupAvoid(avoidPenalty);
+        } else {
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }
@@ -263,51 +298,25 @@ var mapTap = (function() {
             }
         }
         
-        
-        if (goalCountry === country) {
-            onWin();
+        if (currentCash <= 0) {
+            window.location.href = "endScreen.html";     
         } else{
-            
-            if (currentCash <= 0) {
-                document.getElementById('cashInteger').innerHTML ='$' + 0;
-                onLose();    
-            }
-            else{
-                
-                if (currentCash < 50) {
-                    $("#objectiveStar3").attr("src","starOutline.png");
-                }
 
-                completelyDraw()
+            completelyDraw()
 
-                if (secondaryGoalCountry === country) {
-                    $("#objectiveStar2").attr("src","starFill.png");
-                }
-
-                var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
-    //            $("#countryLabel").remove();
-                $(".countryTableBody").prepend(visitedString);
+            var visitedString = "<tr><td>"+numCountries+".</td><td id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
+            $(".countryTableBody").prepend(visitedString);
 
 
-                for(var i = 1; i <numCountries; i++){
-                    $("#country"+i).css("color",pathColor);
-                }
+            for(var i = 1; i <numCountries; i++){
+                $("#country"+i).css("color",pathColor);
             }
         }
-                
     }
-
-    function onLose() {
-        if (confirm("You ran out of goods! Try again?") == true) {
-            newGame();
-        }
-    }
-
-    function onWin() {
-        $("#objectiveStar1").attr("src","starFill.png");
-        if (confirm("You won! Try again?") == true) {
-            newGame();
-        }
+    
+    function drawCashLabel(lostCash){
+        var canvas = document.getElementById("traderCanvas");
+        var ctx = canvas.getContext("2d");   
     }
 
     function resetGame() {
@@ -368,16 +377,7 @@ var mapTap = (function() {
             ['Zambia', defaultColorIndex],
             ['Zimbabwe', defaultColorIndex]
         ];
-
-        $(".objectivesTab").empty();
-        $(".avoidTab").empty();
-        $(".countryTableBody").empty();
-
-//        $(".objectivesTab").append("<h1>Objective</h1>");
-        $(".avoidTab").append("<h1>Avoid</h1>");
-
-        currentCash = startingCash;
-        document.getElementById('cashInteger').innerHTML = currentCash;
+        
         numCountries = 0;
     }
 
@@ -407,17 +407,15 @@ var mapTap = (function() {
             +   "<div class = 'column column2'>"
             +           "<div class = 'objectivesTab'>"
             +           "</div>"
+            +           "<div class = 'destinationTab'>"
+            +           "</div>"
             +           "<div class = 'avoidTab'>"
             +           "</div>"
             +   "</div>"     
             +   "</div>"
             + "<div class='whiteCover'></div>"
             +"</div>");
-        
 
-        $(".countries_visited").prepend("<h1>Traveled to: </h1>");
-        $(".cash").prepend("<h1 style='color:green'>$</h1>");
-        $(".avoidTab").append("<h1>Avoid</h1>");
         
     };
 
@@ -435,46 +433,41 @@ var mapTap = (function() {
         $("body").append($("<div id='dummyBorderingColor' style='display:none;color:#ccdddd'></div>"));
         $("body").append($("<div id='dummyTraderLocationColor' style='display:none;color:#E60EE6'></div>"));
         
-        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));        newGame();
+        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));
+        newGame();
     };
-
-    var newGame = function() {
+    
+    function createLevelHeader() {
+        $(".objectivesTab").empty();
+        var levelHeader = "<div id='levelHeader'><h2 id='levelLabel'>Level "+(Math.floor(currentLevel/4)+1)+"</h2><img src='starOutline.png' id='levelStar1' class='levelStar'><img src='starOutline.png' id='levelStar2' class='levelStar'><img src='starOutline.png' id='levelStar3' class='levelStar'></div>";
+        $(".objectivesTab").append(levelHeader);
+    }
+    
+    function getNewObjective(){
         
-        resetGame();
-
-        var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while ((countriesToAvoid.indexOf(dataCountries[newCountryIndex][0])>= 0)) {
-            newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        
-        currentCountry = dataCountries[newCountryIndex][0];
-        dataCountries[newCountryIndex][1] = traderLocationColorIndex;
-        countriesVisited = [currentCountry];
-
-        addCountryToPath(currentCountry, newCountryIndex);
-
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (endCountryIndex === newCountryIndex || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
+        while (dataCountries[endCountryIndex][0] === currentCountry || (countriesToAvoid.indexOf(dataCountries[endCountryIndex][0])>= 0)) {
             endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         }
         var endCountry = dataCountries[endCountryIndex][0];
         goalCountry = endCountry;
         
-        var secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        while (secondaryCountryIndex === newCountryIndex || secondaryCountryIndex === endCountryIndex || (countriesToAvoid.indexOf(dataCountries[secondaryCountryIndex][0])>= 0)) {
-            secondaryCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        var secondaryCountry = dataCountries[secondaryCountryIndex][0];
-        secondaryGoalCountry = secondaryCountry;
-
-//        var objectiveString = "<div class='row'><div class='span2'><img src='starOutline.png' height='15px'></div><div class='span4'><p>Starting at <span style='color:" + pathColor + "'>" + newCountry + "</span>, try to get to <span style='color:" + goalColor + "'>" + endCountry + "</span></p></div></div>";
-        var objectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar1'><p>Go to <span style='color:" + goalColor + "'>" + endCountry + "</span></div>";
-        $(".objectivesTab").append(objectiveString);
-        var secondaryObjectiveString = "<div class='objectives'><img src='starOutline.png' id='objectiveStar2'><p>Stop by <span style='color:" + goalColor + "'>" + secondaryCountry + "</span></p></div>";
-        $(".objectivesTab").append(secondaryObjectiveString);
-        var moneyObjective = "<div class='objectives'><img src='starFill.png' id='objectiveStar3'><p>Have <span style='color:" + goalColor + "'>$50</span> remaining</p></div>";
-        $(".objectivesTab").append(moneyObjective);
+        $(".destinationTab").empty();
+        $(".destinationTab").append("<h1>Destination</h1>");
+        var objectiveString = "<div class='objectives'><p><span style='color:" + goalColor + "'>" + endCountry + "</span></p></div>";
+        $(".destinationTab").append(objectiveString);
         
+        $(".avoidTab").empty();
+        $(".avoidTab").append("<h1>Avoid</h1>");
+        var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        countriesToAvoid = [];
+        
+        for (var i = 0;i < numberOfAvoidCountries; i++){
+            while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
+                avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+            }
+            countriesToAvoid.push(dataCountries[avoidIndex][0]);
+        }
         
         for (var countryToAvoidIndex in countriesToAvoid) {
             var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
@@ -482,6 +475,34 @@ var mapTap = (function() {
             $(".avoidTab").append(avoidString);
         }
 
+    }
+
+    var newGame = function() {        
+        
+        resetGame();
+        
+        $(".countries_visited").prepend("<h1>Traveled to: </h1>");
+        $(".cash").prepend("<h1 style='color:green'>$</h1>");
+        $(".avoidTab").append("<h1>Avoid</h1>");
+        
+        currentCash = startingCash;
+        document.getElementById('cashInteger').innerHTML = currentCash;
+        
+        var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        while ((countriesToAvoid.indexOf(dataCountries[newCountryIndex][0])>= 0)) {
+            newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
+        }
+        
+        currentCountryIndex = newCountryIndex;
+        currentCountry = dataCountries[newCountryIndex][0];
+        dataCountries[newCountryIndex][1] = traderLocationColorIndex;
+        countriesVisited = [currentCountry];
+
+        addCountryToPath(currentCountry, newCountryIndex);
+        
+        getNewObjective();
+        createLevelHeader();
+        
     }
 
     exports.setup = setup;
@@ -547,7 +568,7 @@ $(document).ready(function() {
     });
     
     el = document.getElementById("overlay");
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    el.style.visibility = "visible";
 
 });
 
