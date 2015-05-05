@@ -186,7 +186,7 @@ var mapTap = (function() {
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }
-        document.getElementById('cashInteger').innerHTML = '$' + currentCash;
+        document.getElementById('cashInteger').innerHTML = '$' + currentCash + ' Remaining';
 
         //clear the last bordering highlights
         for (var pastBorderingCountryIndex in currentBordering) {
@@ -306,8 +306,8 @@ var mapTap = (function() {
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
             +           "<div id='scoreHeader'><h1>Score: 0</h1></div>"
-            +           "<h2>Cash Remaining</h2>"    
-            +           "<h3 id='cashInteger' style='color:green'></h3>"
+//            +           "<h2>Cash Remaining</h2>"    
+            +           "<h2 id='cashInteger' style='color:green'></h2>"
             +           "<div class = 'countries_visited'>"
             +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
             +           "</div>"
@@ -396,7 +396,7 @@ var mapTap = (function() {
         $(".avoidTab").append("<h1>Avoid</h1>");
         
         currentCash = startingCash;
-        document.getElementById('cashInteger').innerHTML = currentCash;
+        document.getElementById('cashInteger').innerHTML = currentCash+" Remaining";
         
         var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         currentCountry = dataCountries[newCountryIndex][0];
