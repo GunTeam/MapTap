@@ -9,7 +9,7 @@
     var startingCash = 155;
 
     var pathColor = 'lightblue';
-    var borderColor = 'pink';
+    var borderColor = 'pink'; //avoid color don't ask me why
     var defaultColor = '#bbbbbb';
     var borderingColor = '#ccdddd';
     var goalColor = '#0C6E30';
