@@ -13,7 +13,7 @@
     var defaultColor = '#bbbbbb';
     var borderingColor = '#ccdddd';
     var goalColor = '#0C6E30';
-    var traderLocationColor = '#E60EE6';
+    var traderLocationColor = 'green';//'#E60EE6';
     var whiteColor = '#ffffff';
     var avoidColor = 'red';
     var defaultColorIndex = 4;
