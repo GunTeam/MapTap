@@ -1,6 +1,6 @@
 body {
     background-color: white;
-    font-family: 'Arial'; 
+    font-family:  'Arial'; 
 /*'Poiret One', '*/
 }
 
@@ -180,7 +180,7 @@ td{
     background-color: none;
 }
 #cashPenaltyText{
-    color:red;
+    color:#D94756;
 }
 #cashRewardText{
     color:green;
