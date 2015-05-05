@@ -161,6 +161,9 @@ var mapTap = (function() {
             popupReward(cashReward);
             
             currentCash += cashReward;
+            
+            score += cashReward;
+            $("#scoreHeader>h1").html("Score: " + score);
 
             resetGame();
             dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
@@ -211,7 +214,7 @@ var mapTap = (function() {
         }
         
         if (currentCash <= 0) {
-            window.location.href = "endScreen.html";     
+            onGameEnd();
         } else{
 
             completelyDraw()
@@ -227,12 +230,8 @@ var mapTap = (function() {
         }
     }
     
-    function drawCashLabel(lostCash){
-        var canvas = document.getElementById("traderCanvas");
-        var ctx = canvas.getContext("2d");   
-    }
-
     function resetGame() {
+        
         dataCountries = [
             ['Country', 'Latitude'],
             ['Algeria', defaultColorIndex],
@@ -294,11 +293,7 @@ var mapTap = (function() {
         numCountries = 0;
     }
 
-    function Model() {
-
-    };
-
-    function View(div, model) {
+    function View(div) {
 
         div.append("<div class = 'container-fluid well'>"
             +   "<div class = 'row-fluid'>"              
@@ -332,13 +327,9 @@ var mapTap = (function() {
         
     };
 
-
-
     var setup = function(div) {
-        var model = Model();
-        var view = View(div, model);
+        var view = View(div);
         exports.view = view;
-        exports.model = model;
         
         $("body").append($("<div id='dummyPathColor' style='display:none;color:#5522cc'></div>"));
         $("body").append($("<div id='dummyAvoidColor' style='display:none;color:#cc0000'></div>"));
@@ -396,7 +387,7 @@ var mapTap = (function() {
     }
 
     var newGame = function() {        
-        
+        score = 0;
         resetGame();
         
         $(".countries_visited").prepend("<h1>Traveled to: </h1>");
@@ -423,6 +414,12 @@ var mapTap = (function() {
         getNewObjective();
         createLevelHeader();
         
+    }
+    
+    
+    function onGameEnd(){
+        localStorage.setItem("yourScore", score);
+        window.location.href = "endScreen.html";     
     }
 
     exports.setup = setup;
@@ -494,6 +491,8 @@ var mapTap = (function() {
             overlay();
         } 
     }
+
+
 
 $(document).ready(function() {
     $('.maptap').each(function() {

@@ -31,6 +31,8 @@
 
     var numCountries = 0;
 
+    var score = 0;
+
     var dataCountries = [
         ['Country', 'Latitude'],
         ['Algeria', defaultColorIndex],
