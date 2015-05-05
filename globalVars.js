@@ -129,7 +129,7 @@
         545: "Ghana",
         528: "Cote d 'Ivoire",
         554: "Liberia",
-        573: "Sierra Leeone",
+        573: "Sierra Leone",
         547: "Guinea",
         550: "Guinea Bissau",
         574: "Senegal",
