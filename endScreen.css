@@ -22,7 +22,7 @@ body {
     color: white;
     font-size: 20px;
     margin-left: -8%;
-    margin-top: 4%;
+    margin-top: 8%;
 }
 
 .endButton:hover{
@@ -69,4 +69,5 @@ body{
 #yourScore{
     margin: 0 auto;
     font-size: 50pt;
+    margin-top: 40px;
 }

@@ -178,7 +178,7 @@ var mapTap = (function() {
         numCountries += 1;
         
         if ($.inArray(country, countriesToAvoid) != -1) {
-            color = avoidColor;
+            color = borderColor;
             currentCash -= avoidPenalty;
             dataCountries[index][1] = avoidColorIndex;
             popupAvoid(avoidPenalty);
@@ -220,12 +220,13 @@ var mapTap = (function() {
             completelyDraw()
             
             var countryFirstWord = country.split(/[ ,-]+/)[0];
-            var visitedString = "<tr><td>"+numCountries+".</td><td class = 'visited"+countryFirstWord+"' id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
+            var visitedString = "<tr><td>"+numCountries+".</td><td class = 'visited"+countryFirstWord+"' id = country" + numCountries + " style='background-color:" + color + "; color: white''> " + country + "</td></tr>";
             $(".countryTableBody").prepend(visitedString);
 
 
             for(var i = 1; i <numCountries; i++){
-                $("#country"+i).css("color",pathColor);
+                $("#country"+i).css("background-color",pathColor);
+                $("#country"+i).css("color","black");
             }
         }
     }
@@ -380,7 +381,7 @@ var mapTap = (function() {
         
         for (var countryToAvoidIndex in countriesToAvoid) {
             var countryToAvoid = countriesToAvoid[countryToAvoidIndex];
-            var avoidString = "<p><span style='color:" + avoidColor + "'>" + countryToAvoid + "</span></p>";
+            var avoidString = "<p><span style='color:" + borderColor + "'>" + countryToAvoid + "</span></p>";
             $(".avoidTab").append(avoidString);
         }
 
