@@ -220,7 +220,7 @@ var mapTap = (function() {
             completelyDraw()
             
             var countryFirstWord = country.split(/[ ,-]+/)[0];
-            var visitedString = "<tr><td>"+numCountries+".</td><td class = 'visited"+countryFirstWord+"' id = country" + numCountries + " style='background-color:" + color + "; color: white''> " + country + "</td></tr>";
+            var visitedString = "<tr><td>"+numCountries+".</td><td class = 'visited"+countryFirstWord+"' id = country" + numCountries + " style='color:" + color + "'> " + country + "</td></tr>";
             $(".countryTableBody").prepend(visitedString);
 
 
