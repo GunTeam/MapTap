@@ -23,9 +23,19 @@ function popupReward(reward){
     var hideTimer = setTimeout(strCmd, timeOutPeriod);
 }
 
+function mouseEnterCountry(country){
+    $('.countryLabelText').html(country);
+    $(".countryLabel").show();
+}
+
+function mouseLeaveCountry(country){
+    $(".countryLabel").hide();
+}
+
 $(document).ready(function(){
     $("body").append("<div class='cashPopup'><span id='cashPenaltyText'></span></div>");
     $("body").append("<div class='cashPopup'><span id='cashRewardText'></span></div>");
+    $("body").append("<div class='countryLabel'><span class='countryLabelText'></span></div>");
 
     $(".cashPopup").hide();
     

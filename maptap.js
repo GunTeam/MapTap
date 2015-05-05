@@ -1,96 +1,6 @@
+
 var mapTap = (function() {
     var exports = {};
-    var africanCountries = [];
-    var continents;
-    var areas;
-
-    var currentCountryIndex;
-    var currentCountry;
-    var goalCountry;
-    var secondaryGoalCountry;
-    var currentCash;
-    var startingCash = 155;
-
-    var pathColor = '#5522cc';
-    var borderColor = '#cc0000';
-    var defaultColor = '#aaaaaa';
-    var borderingColor = '#ccdddd';
-    var goalColor = '#0C6E30';
-    var traderLocationColor = '#E60EE6';
-    var avoidColor = 'red';
-    var defaultColorIndex = 4;
-    var avoidColorIndex = 1;
-    var pathColorIndex = 0;
-    var traderLocationColorIndex = 3;
-    var borderingColorIndex = 2;
-   
-    var numberOfAvoidCountries = 2;
-    var currentLevel = 0;
-    var avoidPenalty = 30;
-    var cashReward = 25;
-
-    var countriesVisited = [];
-    var countriesToAvoid = [];
-
-    var numCountries = 0;
-
-    var dataCountries = [
-        ['Country', 'Latitude'],
-        ['Algeria', defaultColorIndex],
-        ['Angola', defaultColorIndex],
-        ['Benin', defaultColorIndex],
-        ['Botswana', defaultColorIndex],
-        ['Burkina Faso', defaultColorIndex],
-        ['Burundi', defaultColorIndex],
-        ['Cameroon', defaultColorIndex],
-        ['Canary Islands', defaultColorIndex],
-        ['Cape Verde', defaultColorIndex],
-        ['Central African Republic', defaultColorIndex],
-        ['Ceuta', 0],
-        ['Chad', defaultColorIndex],
-        ['Comoros', defaultColorIndex],
-        ['Cote d\'Ivoire', defaultColorIndex],
-        ['Democratic Republic of the Congo', defaultColorIndex],
-        ['Djibouti', defaultColorIndex],
-        ['Egypt', defaultColorIndex],
-        ['Equatorial Guinea', defaultColorIndex],
-        ['Eritrea', defaultColorIndex],
-        ['Ethiopia', defaultColorIndex],
-        ['Gabon', defaultColorIndex],
-        ['Gambia', defaultColorIndex],
-        ['Ghana', defaultColorIndex],
-        ['Guinea', defaultColorIndex],
-        ['Guinea-Bissau', defaultColorIndex],
-        ['Kenya', defaultColorIndex],
-        ['Lesotho', defaultColorIndex],
-        ['Liberia', defaultColorIndex],
-        ['Libya', defaultColorIndex],
-        ['Madagascar', defaultColorIndex],
-        ['Malawi', defaultColorIndex],
-        ['Mali', defaultColorIndex],
-        ['Mauritania', defaultColorIndex],
-        ['Morocco', defaultColorIndex],
-        ['Mozambique', defaultColorIndex],
-        ['Namibia', defaultColorIndex],
-        ['Niger', defaultColorIndex],
-        ['Nigeria', defaultColorIndex],
-        ['Republic of the Congo', defaultColorIndex],
-        ['Rwanda', defaultColorIndex],
-        ['Senegal', defaultColorIndex],
-        ['Sierra Leone', defaultColorIndex],
-        ['Somalia', defaultColorIndex],
-        ['Sudan', defaultColorIndex],
-        ['South Africa', defaultColorIndex],
-        ['South Sudan', defaultColorIndex],
-        ['Swaziland', defaultColorIndex],
-        ['Tanzania', defaultColorIndex],
-        ['Togo', defaultColorIndex],
-        ['Tunisia', defaultColorIndex],
-        ['Uganda', defaultColorIndex],
-        ['Western Sahara', defaultColorIndex],
-        ['Zambia', defaultColorIndex],
-        ['Zimbabwe', defaultColorIndex]
-    ];
 
     var currentBordering = [];
 
@@ -226,6 +136,8 @@ var mapTap = (function() {
     }
     
     function addCountryToPath(country, index){
+        
+        $(".countryLabel").hide();
         
         var color = 'rgb(230, 14, 230)';
 
@@ -511,16 +423,27 @@ var mapTap = (function() {
 }());
 
     function onHover(){
-        console.log(this);   
-        console.log($(this).index());
-//        $(this).css("fill","#333333");
+        var countryIndex = $(this).index();
+        popupCountry(countryIndex)
+    }
+
+    function onMouseEnter(){
+        var countryIndex = $(this).index();
+        mouseEnterCountry(googleIndexing[countryIndex]); //dataCountries[countryIndex][0]
+        $(".countryLabel").css($(this).position());
+    }
+
+    function onMouseLeave(){
+        var countryIndex = $(this).index();
+        mouseLeaveCountry(countryIndex);
     }
 
     function identifyCountry(){
         $("path").each(function(){
             var color = $(this).css("fill"); 
-            if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color")){
-                $(this).hover(onHover);
+            if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color") && color !== $("#dummyBorderingColor").css("color")){
+                $(this).mouseenter(onMouseEnter);
+//                $(this).mouseleave(onMouseLeave);
             }
         })
     }

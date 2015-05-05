@@ -185,6 +185,18 @@ td{
     color:green;
 }
 
+.countryLabelText{
+    color:black;
+}
+
+.countryLabel{
+    position:fixed;
+    top: 5%;
+    left: 40%;
+    font-size: 20px;
+    background-color: none;
+}
+
 #levelHeader{
     border-bottom: 1px solid gray;
 }
