@@ -492,13 +492,13 @@ var mapTap = (function() {
     function onHover(){
         console.log(this);   
         console.log($(this).index());
+        $(this).css("fill","#333333");
     }
 
     function identifyCountry(){
         $("path").each(function(){
             var color = $(this).css("fill"); 
             if(color !== $("#dummyDefaultColor").css("color") && color !== $("#dummyWhiteColor").css("color")){
-                console.log();
                 $(this).hover(onHover);
             }
         })
