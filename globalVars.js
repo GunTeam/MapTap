@@ -8,9 +8,9 @@
     var currentCash;
     var startingCash = 155;
 
-    var pathColor = '#BAE8C1';
+    var pathColor = '#98DB89';
     var borderColor = '#D94756'; //avoid color don't ask me why
-    var defaultColor = '#bbbbbb';
+    var defaultColor = '#B580C2';
     var borderingColor = '#dddddd';
     var goalColor = '#0C6E30';
     var traderLocationColor = 'green';//'#E60EE6';
