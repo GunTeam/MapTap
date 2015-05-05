@@ -139,7 +139,7 @@ var mapTap = (function() {
         
         $(".countryLabel").hide();
         
-        var color = 'rgb(230, 14, 230)';
+        var color = traderLocationColor;
 
         currentCountry = country;
         currentCountryIndex = index;
