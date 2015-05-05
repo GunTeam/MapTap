@@ -249,7 +249,6 @@ var mapTap = (function() {
             popupReward(cashReward);
             
             currentCash += cashReward;
-            J
 
             resetGame();
             dataCountries[currentCountryIndex][1] = traderLocationColorIndex;
