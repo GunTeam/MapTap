@@ -201,6 +201,10 @@ td{
     border-bottom: 1px solid gray;
 }
 
+#scoreHeader{
+    border-bottom: 1px solid gray;
+}
+
 .levelStar {
     height: 22px;
     margin-left: 5px;

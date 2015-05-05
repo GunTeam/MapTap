@@ -308,9 +308,9 @@ var mapTap = (function() {
             +       "</div>"
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
-//            +           "<div class = 'cash'>"
-            +               "<h1 id='cashInteger' style='color:green'></h1>"
-//            +           "</div>"
+            +           "<div id='scoreHeader'><h1>Score: 0</h1></div>"
+            +           "<h2>Cash Remaining</h2>"    
+            +           "<h3 id='cashInteger' style='color:green'></h3>"
             +           "<div class = 'countries_visited'>"
             +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
             +           "</div>"
@@ -351,7 +351,7 @@ var mapTap = (function() {
     
     function createLevelHeader() {
         $(".objectivesTab").empty();
-        var levelHeader = "<div id='levelHeader'><h2 id='levelLabel'>Level "+(Math.floor(currentLevel/4)+1)+"</h2><img src='starOutline.png' id='levelStar1' class='levelStar'><img src='starOutline.png' id='levelStar2' class='levelStar'><img src='starOutline.png' id='levelStar3' class='levelStar'></div>";
+        var levelHeader = "<div id='levelHeader'><h1 id='levelLabel'>Level "+(Math.floor(currentLevel/4)+1)+"</h1><img src='starOutline.png' id='levelStar1' class='levelStar'><img src='starOutline.png' id='levelStar2' class='levelStar'><img src='starOutline.png' id='levelStar3' class='levelStar'></div>";
         $(".objectivesTab").append(levelHeader);
     }
     
@@ -365,12 +365,12 @@ var mapTap = (function() {
         goalCountry = endCountry;
         
         $(".destinationTab").empty();
-        $(".destinationTab").append("<h1>Destination</h1>");
+        $(".destinationTab").append("<h2>Destination</h2>");
         var objectiveString = "<div class='objectives'><p><span style='color:" + goalColor + "'>" + endCountry + "</span></p></div>";
         $(".destinationTab").append(objectiveString);
         
         $(".avoidTab").empty();
-        $(".avoidTab").append("<h1>Avoid</h1>");
+        $(".avoidTab").append("<h2>Avoid</h2>");
         var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         countriesToAvoid = [];
         
