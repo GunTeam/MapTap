@@ -513,7 +513,7 @@ var mapTap = (function() {
     function onHover(){
         console.log(this);   
         console.log($(this).index());
-        $(this).css("fill","#333333");
+//        $(this).css("fill","#333333");
     }
 
     function identifyCountry(){
