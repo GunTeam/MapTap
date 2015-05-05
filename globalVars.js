@@ -8,12 +8,13 @@
     var currentCash;
     var startingCash = 155;
 
-    var pathColor = '#5522cc';
-    var borderColor = '#cc0000';
-    var defaultColor = '#aaaaaa';
+    var pathColor = 'lightblue';
+    var borderColor = 'pink';
+    var defaultColor = '#bbbbbb';
     var borderingColor = '#ccdddd';
     var goalColor = '#0C6E30';
     var traderLocationColor = '#E60EE6';
+    var whiteColor = '#ffffff';
     var avoidColor = 'red';
     var defaultColorIndex = 4;
     var avoidColorIndex = 1;

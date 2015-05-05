@@ -331,13 +331,13 @@ var mapTap = (function() {
         var view = View(div);
         exports.view = view;
         
-        $("body").append($("<div id='dummyPathColor' style='display:none;color:#5522cc'></div>"));
-        $("body").append($("<div id='dummyAvoidColor' style='display:none;color:#cc0000'></div>"));
-        $("body").append($("<div id='dummyDefaultColor' style='display:none;color:#aaaaaa'></div>"));
-        $("body").append($("<div id='dummyBorderingColor' style='display:none;color:#ccdddd'></div>"));
-        $("body").append($("<div id='dummyTraderLocationColor' style='display:none;color:#E60EE6'></div>"));
+        $("body").append($("<div id='dummyPathColor' style='display:none;color:"+pathColor+"'></div>"));
+        $("body").append($("<div id='dummyAvoidColor' style='display:none;color:"+borderColor+"'></div>"));
+        $("body").append($("<div id='dummyDefaultColor' style='display:none;color:"+defaultColor+"'></div>"));
+        $("body").append($("<div id='dummyBorderingColor' style='display:none;color:"+borderingColor+"'></div>"));
+        $("body").append($("<div id='dummyTraderLocationColor' style='display:none;color:"+traderLocationColor+"'></div>"));
         
-        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:#ffffff'></div>"));
+        $("body").append($("<div id='dummyWhiteColor' style='display:none;color:"+whiteColor+"'></div>"));
         newGame();
     };
     
