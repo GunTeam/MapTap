@@ -39,10 +39,13 @@ $(document).ready(function(){
     });
     
     $('#settingsModal').on('hidden.bs.modal', function () {
-        console.log($('#soundsOn').prop('checked'), $('#tutorialOn').prop('checked'));
         localStorage.setItem("soundsOn", $('#soundsOn').prop('checked'));
         localStorage.setItem("TutorialOn", $('#tutorialOn').prop('checked'));
     })
-    
+
 });
 
+$('#settingsModal').on('hidden.bs.modal', function () {
+    localStorage.setItem("soundsOn", $('#soundsOn').prop('checked'));
+    localStorage.setItem("TutorialOn", $('#tutorialOn').prop('checked'));
+})
