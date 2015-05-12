@@ -53,6 +53,7 @@ var mapTap = (function() {
         google.visualization.events.addListener(chart, 'select', mapClickHandler);
 
         function mapClickHandler() {
+            $("#selectCountry")[0].play();
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
@@ -76,6 +77,9 @@ var mapTap = (function() {
             currentLevel++;
             
             if (currentLevel%4 == 0){
+                
+                $("#levelUp")[0].play();
+                
                 avoidPenalty += 10;
                 cashReward += 5;
                 $("#levelStar1").attr("src","starOutline.png");
@@ -295,6 +299,7 @@ var mapTap = (function() {
     
     
     function onGameEnd(){
+        
         localStorage.setItem("yourScore", score);
         
         if(localStorage.getItem("bestScore") < score){
