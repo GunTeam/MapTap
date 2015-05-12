@@ -74,9 +74,11 @@ var mapTap = (function() {
         if (goalCountry === country) {
             $(".countryTableBody").empty();
             currentLevel++;
+
             playSound("#reachedDestination");
 
             if (currentLevel%4 == 0){
+                
                 playSound("#levelUp");
                 popupLevelup();
                 

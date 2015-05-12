@@ -30,7 +30,7 @@ function popupReward(reward){
 
 function popupLevelup(){
     document.getElementById('levelUpText').innerHTML = 'Level Up!';
-    $(".rewardPopup").show();
+    $(".levelupPopup").show();
     $("#reachedDestination")[0].play();
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
@@ -53,7 +53,7 @@ function mouseLeaveCountry(country){
 $(document).ready(function(){
     $("body").append("<div class='cashPopup penaltyPopup'><span id='cashPenaltyText'></span></div>");
     $("body").append("<div class='cashPopup rewardPopup'><span id='cashRewardText'></span></div>");
-    $("body").append("<div class='cashPopup rewardPopup'><span id='levelUpText'></span></div>");
+    $("body").append("<div class='cashPopup levelupPopup'><span id='levelUpText'></span></div>");
     $("body").append("<div class='countryLabel'><span class='countryLabelText'></span></div>");
 
     $(".cashPopup").hide();
