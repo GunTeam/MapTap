@@ -440,8 +440,8 @@ var mapTap = (function() {
         mouseEnterCountry(country); //dataCountries[countryIndex][0]
         
         var countryLabelPosition = $(this).position();
-        countryLabelPosition.top += 10;
-        countryLabelPosition.left += 20;
+        countryLabelPosition.top += 30;
+        countryLabelPosition.left += 60;
         $(".countryLabel").css(countryLabelPosition);
         
         var countryFirstWord = country.split(/[ ,-]+/)[0];
