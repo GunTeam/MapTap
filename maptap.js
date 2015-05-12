@@ -77,7 +77,7 @@ var mapTap = (function() {
             currentLevel++;
             
             if (currentLevel%4 == 0){
-                
+                popupLevelup();
                 $("#levelUp")[0].play();
                 
                 avoidPenalty += 10;
