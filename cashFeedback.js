@@ -7,7 +7,6 @@ function playSound(soundID){
 function popupAvoid(penalty){
     document.getElementById('cashPenaltyText').innerHTML = "-"+penalty;
     $(".penaltyPopup").show();
-    playSound("#clickedAvoid");
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
     var waitseconds = 1;
@@ -20,7 +19,6 @@ function popupAvoid(penalty){
 function popupReward(reward){
     document.getElementById('cashRewardText').innerHTML = "+"+reward;
     $(".rewardPopup").show();
-    playSound("#reachedDestination");
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
     var waitseconds = 1;

@@ -53,7 +53,6 @@ var mapTap = (function() {
         google.visualization.events.addListener(chart, 'select', mapClickHandler);
 
         function mapClickHandler() {
-            playSound("#selectCountry");
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
@@ -75,7 +74,9 @@ var mapTap = (function() {
         if (goalCountry === country) {
             $(".countryTableBody").empty();
             currentLevel++;
-            console.log('currentLevel mod 4 = '+currentLevel%4);
+
+            playSound("#reachedDestination");
+
             if (currentLevel%4 == 0){
                 
                 playSound("#levelUp");
@@ -110,11 +111,13 @@ var mapTap = (function() {
         numCountries += 1;
         
         if ($.inArray(country, countriesToAvoid) != -1) {
+            playSound("#clickedAvoid");
             color = borderColor;
             currentCash -= avoidPenalty;
             dataCountries[index][1] = avoidColorIndex;
             popupAvoid(avoidPenalty);
         } else {
+            playSound("#selectCountry");
             currentCash -= 5;
             dataCountries[index][1] = traderLocationColorIndex;
         }
