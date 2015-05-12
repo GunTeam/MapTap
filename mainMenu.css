@@ -56,3 +56,12 @@ body {
     font-size: 100pt;
     text-align: center;
 }
+
+.modal {
+    font-size: 15pt; 
+}
+
+.settingsParagraph{
+    display: inline;
+    margin: 10px;
+}

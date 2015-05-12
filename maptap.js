@@ -388,6 +388,7 @@ var mapTap = (function() {
 
 
 $(document).ready(function() {
+    $("#menuSelect")[0].play();
     $('.maptap').each(function() {
         mapTap.setup($(this));
         $(this).css("position", "absolute");
