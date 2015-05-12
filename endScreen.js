@@ -1,6 +1,6 @@
 
 function playSound(soundID){
-    if( localStorage.getItem("soundsOn") === "True"){
+    if( localStorage.getItem("soundsOn") === "true"){
         $(soundID)[0].play();
     }
 }

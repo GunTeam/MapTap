@@ -386,7 +386,7 @@ var mapTap = (function() {
     }
 
     function playSound(soundID){
-        if( localStorage.getItem("soundsOn") === "True"){
+        if( localStorage.getItem("soundsOn") === "true"){
             $(soundID)[0].play();
         }
     }
@@ -401,7 +401,7 @@ $(document).ready(function() {
     el = document.getElementById("overlay");
     el.style.visibility = "visible";
     
-    if( !localStorage.getItem("TutorialOn") ){
+    if( localStorage.getItem("TutorialOn") === 'false'){
         $("#overlay").hide();
     }
 });
