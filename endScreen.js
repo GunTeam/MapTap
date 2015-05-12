@@ -1,5 +1,12 @@
+
+function playSound(soundID){
+    if( localStorage.getItem("soundsOn") === "True"){
+        $(soundID)[0].play();
+    }
+}
+
 $(document).ready(function(){
-    $("#gameOver")[0].play();
+    playSound("#gameOver");
     
     var yourScore = localStorage.getItem("yourScore");
     $("#YourScore").html("Your Score: " + yourScore);

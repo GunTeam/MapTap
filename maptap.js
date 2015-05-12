@@ -53,7 +53,7 @@ var mapTap = (function() {
         google.visualization.events.addListener(chart, 'select', mapClickHandler);
 
         function mapClickHandler() {
-            $("#selectCountry")[0].play();
+            playSound("#selectCountry");
             var selection = chart.getSelection();
             var index = selection[0].row + 1;
             var country = dataCountries[index][0];
@@ -78,7 +78,7 @@ var mapTap = (function() {
             
             if (currentLevel%4 == 0){
                 
-                $("#levelUp")[0].play();
+                playSound("#levelUp");
                 
                 avoidPenalty += 10;
                 cashReward += 5;
@@ -382,13 +382,17 @@ var mapTap = (function() {
             overlay();
         } 
         
-        localStorage.setItem("TutorialPlayed", true);
+        localStorage.setItem("TutorialOn", false);
     }
 
-
+    function playSound(soundID){
+        if( localStorage.getItem("soundsOn") === "True"){
+            $(soundID)[0].play();
+        }
+    }
 
 $(document).ready(function() {
-    $("#menuSelect")[0].play();
+    playSound("#menuSelect");
     $('.maptap').each(function() {
         mapTap.setup($(this));
         $(this).css("position", "absolute");
@@ -397,7 +401,7 @@ $(document).ready(function() {
     el = document.getElementById("overlay");
     el.style.visibility = "visible";
     
-    if( localStorage.getItem("TutorialPlayed") ){
+    if( !localStorage.getItem("TutorialOn") ){
         $("#overlay").hide();
     }
 });

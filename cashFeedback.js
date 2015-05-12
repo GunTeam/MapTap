@@ -1,8 +1,13 @@
-
+function playSound(soundID){
+    if( localStorage.getItem("soundsOn")){
+        $(soundID)[0].play();
+    }
+}
+    
 function popupAvoid(penalty){
     document.getElementById('cashPenaltyText').innerHTML = "-"+penalty;
     $(".penaltyPopup").show();
-    $("#clickedAvoid")[0].play();
+    playSound("#clickedAvoid");
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
     var waitseconds = 1;
@@ -15,7 +20,7 @@ function popupAvoid(penalty){
 function popupReward(reward){
     document.getElementById('cashRewardText').innerHTML = "+"+reward;
     $(".rewardPopup").show();
-    $("#reachedDestination")[0].play();
+    playSound("#reachedDestination");
     // Assign the command to execute and the number of seconds to wait
     var strCmd = "$('.cashPopup').hide()";
     var waitseconds = 1;
