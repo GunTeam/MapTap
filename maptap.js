@@ -6,71 +6,6 @@ var mapTap = (function() {
 
     var countryToIndexMap = {};
 
-    var borderDictionary = {
-        "Algeria": ["Morocco", "Western Sahara", "Mauritania", "Mali", "Niger", "Tunisia", "Libya"],
-        "Angola": ["Democratic Republic of the Congo", "Zambia", "Namibia"],
-        "Benin": ["Togo", "Burkina Faso", "Niger", "Nigeria"],
-        "Botswana": ["Namibia", "Zimbabwe", "South Africa"],
-        "Burkina Faso": ["Mali", "Niger", "Benin", "Togo", "Ghana", "Cote d\'Ivoire"],
-        "Burundi": ["Rwanda", "Tanzania", "Democratic Republic of the Congo"],
-        "Cameroon": ["Republic of the Congo", "Gabon", "Equatorial Guinea", "Nigeria", "Chad", "Central African Republic"],
-        "Canary Islands": ["Western Sahara", "Morocco"],
-        "Cape Verde": ["Mauritania", "Senegal"],
-        "Central African Republic": ["Republic of the Congo", "Cameroon", "Chad", "Sudan", "South Sudan", "Democratic Republic of the Congo"],
-        "Ceuta": ["Morocco"],
-        "Chad": ["Niger", "Libya", "Cameroon", "Central African Republic", "Sudan"],
-        "Comoros": ["Madagascar", "Mozambique"],
-        "Cote d\'Ivoire": ["Guinea", "Liberia", "Mali", "Burkina Faso", "Ghana"],
-        "Democratic Republic of the Congo": ["Uganda", "Rwanda", "Burundi", "Zambia", "Angola", "Republic of the Congo", "Central African Republic", "South Sudan", "Tanzania"],
-        "Djibouti": ["Eritrea", "Ethiopia", "Somalia"],
-        "Egypt": ["Libya", "Sudan"],
-        "Equatorial Guinea": ["Gabon", "Cameroon"],
-        "Eritrea": ["Sudan", "Ethiopia", "Djibouti"],
-        "Ethiopia": ["Djibouti", "Somalia", "Kenya", "South Sudan", "Sudan", "Eritrea"],
-        "Gabon": ["Equatorial Guinea", "Cameroon", "Republic of the Congo"],
-        "Gambia": ["Senegal"],
-        "Ghana": ["Cote d\'Ivoire", "Togo", "Burkina Faso"],
-        "Guinea": ["Senegal", "Sierra Leone", "Liberia", "Cote d\'Ivoire", "Mali", "Guinea-Bissau"],
-        "Guinea-Bissau": ["Senegal", "Guinea"],
-        "Kenya": ["Uganda", "Tanzania", "Somalia", "Ethiopia", "South Sudan"],
-        "Lesotho": ["South Africa"],
-        "Liberia": ["Sierra Leone", "Guinea", "Cote d\'Ivoire"],
-        "Libya": ["Tunisia", "Algeria", "Niger", "Chad", "Egypt", "Sudan"],
-        "Madagascar": ["Mozambique", "Comoros"],
-        "Madeira": [],
-        "Malawi": ["Tanzania", "Zambia", "Mozambique"],
-        "Mali": ["Algeria", "Niger", "Burkina Faso", "Cote d\'Ivoire", "Guinea", "Senegal", "Mauritania"],
-        "Mauritania": ["Western Sahara", "Mali", "Algeria", "Senegal", "Cape Verde"],
-        "Mauritius": [],
-        "Mayotte": [],
-        "Melilla": [],
-        "Morocco": ["Canary Islands", "Western Sahara", "Algeria", "Ceuta"],
-        "Mozambique": ["Comoros", "Madagascar", "Malawi", "Tanzania", "South Africa", "Zimbabwe", "Zambia"],
-        "Namibia": ["Botswana", "South Africa", "Angola", "Zambia", "Zimbabwe"],
-        "Niger": ["Mali", "Algeria", "Libya", "Chad", "Nigeria", "Benin", "Burkina Faso"],
-        "Nigeria": ["Niger", "Benin", "Cameroon"],
-        "Republic of the Congo": ["Gabon", "Cameroon", "Central African Republic", "Democratic Republic of the Congo"],
-        "Réunion": [],
-        "Rwanda": ["Uganda", "Tanzania", "Burundi", "Democratic Republic of the Congo"],
-        "Saint Helena": [],
-        "São Tomé and Principe": [],
-        "Senegal": ["Gambia", "Mauritania", "Mali", "Guinea-Bissau", "Guinea", "Cape Verde"],
-        "Seychelles": [],
-        "Sierra Leone": ["Guinea", "Liberia"],
-        "Somalia": ["Ethiopia", "Kenya", "Djibouti"],
-        "South Africa": ["Lesotho", "Swaziland", "Botswana", "Namibia", "Zimbabwe", "Mozambique"],
-        "South Sudan": ["Sudan", "Ethiopia", "Kenya", "Uganda", "Democratic Republic of the Congo", "Central African Republic"],
-        "Sudan": ["Egypt", "Libya", "Chad", "Eritrea", "Ethiopia", "South Sudan", "Central African Republic"],
-        "Swaziland": ["South Africa", "Mozambique"],
-        "Tanzania": ["Kenya", "Burundi", "Rwanda", "Uganda", "Malawi", "Zambia", "Mozambique", "Democratic Republic of the Congo"],
-        "Togo": ["Ghana", "Burkina Faso", "Benin"],
-        "Tunisia": ["Algeria", "Libya"],
-        "Uganda": ["South Sudan", "Kenya", "Rwanda", "Democratic Republic of the Congo", "Tanzania"],
-        "Western Sahara": ["Canary Islands", "Morocco", "Mauritania"],
-        "Zambia": ["Angola", "Democratic Republic of the Congo", "Tanzania", "Malawi", "Mozambique", "Zimbabwe", "Namibia"],
-        "Zimbabwe": ["Zambia", "Botswana", "South Africa", "Mozambique", "Namibia"]
-    };
-
     google.load("visualization", "1.0", {
         packages: ["geochart"]
     });
@@ -79,14 +14,6 @@ var mapTap = (function() {
     //randomized avoid country list
     var countriesToAvoid = [];
     
-    var avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-    for (var i = 0;i < numberOfAvoidCountries; i++){
-        while (countriesToAvoid.indexOf(dataCountries[avoidIndex][0]) >= 0){
-            avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
-        }
-        countriesToAvoid.push(dataCountries[avoidIndex][0]);
-    }
-
     //Make a map so that when given a country, we know what entry of dataCountries it corresponds to
     for (var dataCountryInd = 1; dataCountryInd < dataCountries.length; dataCountryInd++) {
         var thisCountry = dataCountries[dataCountryInd][0];
@@ -233,63 +160,13 @@ var mapTap = (function() {
     
     function resetGame() {
         
-        dataCountries = [
-            ['Country', 'Latitude'],
-            ['Algeria', defaultColorIndex],
-            ['Angola', defaultColorIndex],
-            ['Benin', defaultColorIndex],
-            ['Botswana', defaultColorIndex],
-            ['Burkina Faso', defaultColorIndex],
-            ['Burundi', defaultColorIndex],
-            ['Cameroon', defaultColorIndex],
-            ['Canary Islands', defaultColorIndex],
-            ['Cape Verde', defaultColorIndex],
-            ['Central African Republic', defaultColorIndex],
-            ['Ceuta', pathColorIndex],
-            ['Chad', defaultColorIndex],
-            ['Comoros', defaultColorIndex],
-            ['Cote d\'Ivoire', defaultColorIndex],
-            ['Democratic Republic of the Congo', defaultColorIndex],
-            ['Djibouti', defaultColorIndex],
-            ['Egypt', defaultColorIndex],
-            ['Equatorial Guinea', defaultColorIndex],
-            ['Eritrea', defaultColorIndex],
-            ['Ethiopia', defaultColorIndex],
-            ['Gabon', defaultColorIndex],
-            ['Gambia', defaultColorIndex],
-            ['Ghana', defaultColorIndex],
-            ['Guinea', defaultColorIndex],
-            ['Guinea-Bissau', defaultColorIndex],
-            ['Kenya', defaultColorIndex],
-            ['Lesotho', defaultColorIndex],
-            ['Liberia', defaultColorIndex],
-            ['Libya', defaultColorIndex],
-            ['Madagascar', defaultColorIndex],
-            ['Malawi', defaultColorIndex],
-            ['Mali', defaultColorIndex],
-            ['Mauritania', defaultColorIndex],
-            ['Morocco', defaultColorIndex],
-            ['Mozambique', defaultColorIndex],
-            ['Namibia', defaultColorIndex],
-            ['Niger', defaultColorIndex],
-            ['Nigeria', defaultColorIndex],
-            ['Republic of the Congo', defaultColorIndex],
-            ['Rwanda', defaultColorIndex],
-            ['Senegal', defaultColorIndex],
-            ['Sierra Leone', defaultColorIndex],
-            ['Somalia', defaultColorIndex],
-            ['Sudan', defaultColorIndex],
-            ['South Africa', defaultColorIndex],
-            ['South Sudan', defaultColorIndex],
-            ['Swaziland', defaultColorIndex],
-            ['Tanzania', defaultColorIndex],
-            ['Togo', defaultColorIndex],
-            ['Tunisia', defaultColorIndex],
-            ['Uganda', defaultColorIndex],
-            ['Western Sahara', defaultColorIndex],
-            ['Zambia', defaultColorIndex],
-            ['Zimbabwe', defaultColorIndex]
-        ];
+        for(var resetIndex = 1; resetIndex < dataCountries.length; resetIndex++){
+            dataCountries[resetIndex][1] = defaultColorIndex;
+        }
+        
+        //need to set one random unreachable country as the upperbound index:
+        dataCountries[countryToIndexMap['Ceuta']][1] = pathColorIndex;
+
         
         numCountries = 0;
     }
@@ -306,7 +183,6 @@ var mapTap = (function() {
             +   "<div class = 'column column1'>"
             +       "<div class = 'row-fluid'>"
             +           "<div id='scoreHeader'><h1>Score: 0</h1></div>"
-//            +           "<h2>Cash Remaining</h2>"    
             +           "<h2 id='cashInteger' style='color:green'></h2>"
             +           "<div class = 'countries_visited'>"
             +               "<table class = 'countryTable'><thead></thead><tbody class = 'countryTableBody'></tbody></table>"       
