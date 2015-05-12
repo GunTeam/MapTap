@@ -420,6 +420,11 @@ var mapTap = (function() {
     
     function onGameEnd(){
         localStorage.setItem("yourScore", score);
+        
+        if(localStorage.getItem("bestScore") < score){
+            localStorage.setItem("bestScore", score);
+        }
+        
         window.location.href = "endScreen.html";     
     }
 
