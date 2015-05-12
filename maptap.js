@@ -77,8 +77,8 @@ var mapTap = (function() {
             currentLevel++;
             
             if (currentLevel%4 == 0){
-                
                 playSound("#levelUp");
+                popupLevelup();
                 
                 avoidPenalty += 10;
                 cashReward += 5;

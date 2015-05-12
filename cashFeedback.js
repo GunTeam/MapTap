@@ -30,6 +30,19 @@ function popupReward(reward){
     var hideTimer = setTimeout(strCmd, timeOutPeriod);
 }
 
+function popupLevelup(){
+    document.getElementById('levelUpText').innerHTML = 'Level Up!';
+    $(".rewardPopup").show();
+    $("#reachedDestination")[0].play();
+    // Assign the command to execute and the number of seconds to wait
+    var strCmd = "$('.cashPopup').hide()";
+    var waitseconds = 1;
+
+    // Calculate time out period then execute the command
+    var timeOutPeriod = waitseconds * 1000;
+    var hideTimer = setTimeout(strCmd, timeOutPeriod);
+}
+
 function mouseEnterCountry(country){
     $('.countryLabelText').html(country);
     $(".countryLabel").show();
@@ -42,6 +55,7 @@ function mouseLeaveCountry(country){
 $(document).ready(function(){
     $("body").append("<div class='cashPopup penaltyPopup'><span id='cashPenaltyText'></span></div>");
     $("body").append("<div class='cashPopup rewardPopup'><span id='cashRewardText'></span></div>");
+    $("body").append("<div class='cashPopup rewardPopup'><span id='levelUpText'></span></div>");
     $("body").append("<div class='countryLabel'><span class='countryLabelText'></span></div>");
 
     $(".cashPopup").hide();
