@@ -353,7 +353,7 @@ var mapTap = (function() {
         var endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         var endCountry = dataCountries[endCountryIndex][0];
 
-        while (endCountry === currentCountry || (countriesToAvoid.indexOf(endCountry)>= 0) || (islands.indexOf(endCountry)>= 0) ) {
+        while (endCountry === currentCountry || (islands.indexOf(endCountry)>= 0) ) {
             endCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
             endCountry = dataCountries[endCountryIndex][0];
         }
@@ -372,7 +372,7 @@ var mapTap = (function() {
         
         for (var i = 0;i < numberOfAvoidCountries; i++){
             var avoidCountry = dataCountries[avoidIndex][0];
-            while (countriesToAvoid.indexOf(avoidCountry) >= 0 || islands.indexOf(avoidCountry)>=0){
+            while (avoidCountry === endCountry || countriesToAvoid.indexOf(avoidCountry) >= 0 || islands.indexOf(avoidCountry)>=0){
                 avoidIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
                 avoidCountry = dataCountries[avoidIndex][0];
             }
@@ -401,7 +401,7 @@ var mapTap = (function() {
         var newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
         currentCountry = dataCountries[newCountryIndex][0];
         
-        while ((countriesToAvoid.indexOf(currentCountry)>= 0) || (islands.indexOf(currentCountry)>= 0)) {
+        while ((islands.indexOf(currentCountry)>= 0)) {
             newCountryIndex = Math.floor(Math.random() * (dataCountries.length - 1)) + 1;
             currentCountry = dataCountries[newCountryIndex][0];
         }
